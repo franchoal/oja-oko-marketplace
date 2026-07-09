@@ -33,6 +33,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "buyer",
+        "farmer",
         "status",
         "created_at",
         "updated_at",
@@ -41,12 +42,15 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = (
         "status",
         "created_at",
+        "farmer",
     )
 
     search_fields = (
         "buyer__email",
         "buyer__first_name",
         "buyer__last_name",
+        "farmer__farm_name",
+        "farmer__user__email",
     )
 
     readonly_fields = (

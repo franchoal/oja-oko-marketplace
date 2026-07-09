@@ -1,12 +1,18 @@
 from django.conf import settings
 from django.db import models
 
+from farmers.models import FarmerProfile
 from products.models import Product
 
 
 class Order(models.Model):
     """
     Represents a buyer order.
+
+    Each order belongs to exactly one buyer and one farmer profile.
+
+    If a buyer checks out products from multiple farmers,
+    the checkout process creates one order per farmer.
     """
 
     DRAFT = "draft"
@@ -37,6 +43,12 @@ class Order(models.Model):
         related_name="orders",
     )
 
+    farmer = models.ForeignKey(
+        FarmerProfile,
+        on_delete=models.PROTECT,
+        related_name="orders",
+    )
+
     status = models.CharField(
         max_length=30,
         choices=STATUS_CHOICES,
@@ -53,12 +65,15 @@ class Order(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
-
         verbose_name = "Order"
         verbose_name_plural = "Orders"
 
     def __str__(self):
-        return f"Order #{self.id} - {self.buyer.email}"
+        return (
+            f"Order #{self.id} | "
+            f"{self.buyer.email} → "
+            f"{self.farmer.user.email}"
+        )
 
 
 class OrderItem(models.Model):
@@ -87,13 +102,21 @@ class OrderItem(models.Model):
 
     class Meta:
         ordering = ["id"]
-
         verbose_name = "Order Item"
         verbose_name_plural = "Order Items"
 
     def __str__(self):
-        return f"{self.product.name} x {self.quantity}"
+        return (
+            f"{self.product.name} x {self.quantity}"
+        )
 
     @property
     def subtotal(self):
+        """
+        Calculate the subtotal for an order item.
+        """
+
+        if self.price is None or self.quantity is None:
+            return 0
+
         return self.price * self.quantity

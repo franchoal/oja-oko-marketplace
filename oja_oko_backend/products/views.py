@@ -24,19 +24,21 @@ class ProductListView(generics.ListAPIView):
     )
 
     serializer_class = ProductListSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [
+        permissions.AllowAny,
+    ]
 
     filter_backends = [
-    filters.SearchFilter,
-    filters.OrderingFilter,
-]
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    ]
 
     search_fields = [
         "name",
         "description",
         "category__name",
-        "farmer__first_name",
-        "farmer__last_name",
+        "farmer__farm_name",
+        "farmer__farm_location",
     ]
 
     ordering_fields = [
@@ -57,12 +59,17 @@ class ProductDetailView(generics.RetrieveAPIView):
     )
 
     serializer_class = ProductDetailSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [
+        permissions.AllowAny,
+    ]
 
 
 class ProductCreateView(generics.CreateAPIView):
     """
     Farmers create products.
+
+    Note:
+    Farmer ownership is handled through FarmerProfile.
     """
 
     serializer_class = ProductCreateUpdateSerializer
@@ -73,8 +80,9 @@ class ProductCreateView(generics.CreateAPIView):
     ]
 
     def perform_create(self, serializer):
+
         serializer.save(
-            farmer=self.request.user
+            farmer=self.request.user.farmer_profile
         )
 
 
@@ -100,9 +108,9 @@ class ProductDeleteView(generics.DestroyAPIView):
     """
 
     queryset = Product.objects.select_related(
-    "farmer",
-    "category",
-)
+        "farmer",
+        "category",
+    )
 
     permission_classes = [
         permissions.IsAuthenticated,

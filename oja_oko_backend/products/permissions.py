@@ -1,30 +1,40 @@
-from rest_framework.permissions import BasePermission, SAFE_METHODS
+from rest_framework import permissions
 
 
-class IsFarmerOrReadOnly(BasePermission):
+class IsFarmerOrReadOnly(permissions.BasePermission):
     """
-    Anyone can view products.
-    Only authenticated farmers can create products.
+    Allows only farmers to create or modify products.
+
+    Read access is allowed.
     """
 
     def has_permission(self, request, view):
-        if request.method in SAFE_METHODS:
+
+        if request.method in permissions.SAFE_METHODS:
             return True
 
         return (
             request.user.is_authenticated
-            and request.user.role == request.user.FARMER
+            and request.user.role == "farmer"
         )
 
 
-class IsOwnerOrReadOnly(BasePermission):
+class IsOwnerOrReadOnly(permissions.BasePermission):
     """
-    Only the farmer who owns a product can edit or delete it.
-    Everyone can view products.
+    Allows only the farmer who owns the product
+    to update or delete it.
     """
 
-    def has_object_permission(self, request, view, obj):
-        if request.method in SAFE_METHODS:
+    def has_object_permission(
+        self,
+        request,
+        view,
+        obj,
+    ):
+
+        if request.method in permissions.SAFE_METHODS:
             return True
 
-        return obj.farmer == request.user
+        return (
+            obj.farmer.user == request.user
+        )

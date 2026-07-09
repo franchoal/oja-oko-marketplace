@@ -77,6 +77,11 @@ path(
     "api/analytics/",
     include("analytics.urls"),
 ),
+
+path(
+    "api/farmers/",
+    include("farmers.urls")
+),
 ]
 
 # Serve media files during development

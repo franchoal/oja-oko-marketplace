@@ -1,6 +1,8 @@
 from django.db.models import Count, Sum
 from django.db.models.functions import TruncDate
+
 from rest_framework import generics, permissions
+from rest_framework.response import Response
 
 from accounts.models import User
 from orders.models import Order
@@ -21,9 +23,11 @@ class AnalyticsView(generics.RetrieveAPIView):
         permissions.IsAdminUser,
     ]
 
+
     def retrieve(self, request, *args, **kwargs):
 
         total_users = User.objects.count()
+
 
         user_growth = list(
             User.objects.annotate(
@@ -36,7 +40,9 @@ class AnalyticsView(generics.RetrieveAPIView):
             .order_by("date")
         )
 
+
         total_products = Product.objects.count()
+
 
         product_growth = list(
             Product.objects.annotate(
@@ -49,7 +55,9 @@ class AnalyticsView(generics.RetrieveAPIView):
             .order_by("date")
         )
 
+
         total_orders = Order.objects.count()
+
 
         order_status_distribution = dict(
             Order.objects.values("status")
@@ -62,6 +70,7 @@ class AnalyticsView(generics.RetrieveAPIView):
             )
         )
 
+
         total_revenue = (
             Payment.objects.filter(
                 status=Payment.SUCCESSFUL
@@ -73,15 +82,18 @@ class AnalyticsView(generics.RetrieveAPIView):
             or 0
         )
 
+
         active_farmers = User.objects.filter(
             role=User.FARMER,
             is_active=True,
         ).count()
 
+
         active_buyers = User.objects.filter(
             role=User.BUYER,
             is_active=True,
         ).count()
+
 
         data = {
             "total_users": total_users,
@@ -95,4 +107,16 @@ class AnalyticsView(generics.RetrieveAPIView):
             "active_buyers": active_buyers,
         }
 
-        return self.get_serializer(data).data
+
+        serializer = self.get_serializer(
+            data=data
+        )
+
+        serializer.is_valid(
+            raise_exception=True
+        )
+
+
+        return Response(
+            serializer.data
+        )

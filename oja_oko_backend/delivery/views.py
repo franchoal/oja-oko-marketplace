@@ -6,7 +6,7 @@ from .serializers import DeliverySerializer
 
 class DeliveryListView(generics.ListAPIView):
     """
-    List deliveries belonging to the authenticated buyer.
+    Buyers view their deliveries.
     """
 
     serializer_class = DeliverySerializer
@@ -16,14 +16,19 @@ class DeliveryListView(generics.ListAPIView):
     ]
 
     def get_queryset(self):
+
         return Delivery.objects.filter(
             order__buyer=self.request.user
+        ).select_related(
+            "order",
+            "order__buyer",
+            "order__farmer",
         )
 
 
 class DeliveryDetailView(generics.RetrieveAPIView):
     """
-    View a single delivery belonging to the authenticated buyer.
+    Buyers view a single delivery.
     """
 
     serializer_class = DeliverySerializer
@@ -33,6 +38,55 @@ class DeliveryDetailView(generics.RetrieveAPIView):
     ]
 
     def get_queryset(self):
+
         return Delivery.objects.filter(
             order__buyer=self.request.user
+        ).select_related(
+            "order",
+            "order__buyer",
+            "order__farmer",
+        )
+
+
+class FarmerDeliveryListView(generics.ListAPIView):
+    """
+    Farmers view deliveries for their orders.
+    """
+
+    serializer_class = DeliverySerializer
+
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
+
+    def get_queryset(self):
+
+        return Delivery.objects.filter(
+            order__farmer__user=self.request.user
+        ).select_related(
+            "order",
+            "order__buyer",
+            "order__farmer",
+        )
+
+
+class FarmerDeliveryDetailView(generics.RetrieveUpdateAPIView):
+    """
+    Farmers update delivery progress for their orders.
+    """
+
+    serializer_class = DeliverySerializer
+
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
+
+    def get_queryset(self):
+
+        return Delivery.objects.filter(
+            order__farmer__user=self.request.user
+        ).select_related(
+            "order",
+            "order__buyer",
+            "order__farmer",
         )

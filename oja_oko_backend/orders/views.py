@@ -1,7 +1,13 @@
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, status
+from rest_framework.response import Response
 
 from .models import Order
-from .serializers import OrderSerializer
+from .permissions import IsFarmer
+from .serializers import (
+    CheckoutSerializer,
+    OrderSerializer,
+)
+from .services import checkout
 
 
 class OrderListView(generics.ListAPIView):
@@ -16,6 +22,7 @@ class OrderListView(generics.ListAPIView):
     ]
 
     def get_queryset(self):
+
         return Order.objects.filter(
             buyer=self.request.user
         ).prefetch_related(
@@ -35,8 +42,125 @@ class OrderDetailView(generics.RetrieveAPIView):
     ]
 
     def get_queryset(self):
+
         return Order.objects.filter(
             buyer=self.request.user
+        ).prefetch_related(
+            "items__product"
+        )
+
+
+class CheckoutView(generics.GenericAPIView):
+    """
+    Checkout the authenticated buyer's cart.
+
+    Creates one order per farmer.
+    """
+
+    serializer_class = CheckoutSerializer
+
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
+
+    def post(self, request):
+
+        serializer = self.get_serializer(
+            data=request.data
+        )
+
+        serializer.is_valid(
+            raise_exception=True
+        )
+
+        results = checkout(
+            buyer=request.user,
+            delivery_address=serializer.validated_data[
+                "delivery_address"
+            ],
+            payment_method=serializer.validated_data[
+                "payment_method"
+            ],
+        )
+
+        orders_response = []
+
+        for result in results:
+
+            order = result["order"]
+            payment = result["payment"]
+            delivery = result["delivery"]
+
+            orders_response.append(
+                {
+                    "order": OrderSerializer(
+                        order
+                    ).data,
+
+                    "payment": {
+                        "id": payment.id,
+                        "method": payment.method,
+                        "status": payment.status,
+                        "amount": payment.amount,
+                    },
+
+                    "delivery": {
+                        "id": delivery.id,
+                        "address": delivery.address,
+                        "status": delivery.status,
+                        "tracking_number": delivery.tracking_number,
+                    },
+                }
+            )
+
+        return Response(
+            {
+                "message": (
+                    "Checkout completed successfully."
+                ),
+                "orders": orders_response,
+            },
+            status=status.HTTP_201_CREATED,
+        )
+
+
+class FarmerOrderListView(generics.ListAPIView):
+    """
+    Farmers view orders containing their products.
+    """
+
+    serializer_class = OrderSerializer
+
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsFarmer,
+    ]
+
+    def get_queryset(self):
+
+        return Order.objects.filter(
+            farmer__user=self.request.user
+        ).prefetch_related(
+            "items__product"
+        )
+
+
+class FarmerOrderDetailView(generics.RetrieveUpdateAPIView):
+    """
+    Farmers view and update their own orders.
+    """
+
+    serializer_class = OrderSerializer
+
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsFarmer,
+    ]
+
+    def get_queryset(self):
+
+        return Order.objects.filter(
+            farmer__user=self.request.user
         ).prefetch_related(
             "items__product"
         )

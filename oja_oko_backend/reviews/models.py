@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 from products.models import Product
 
@@ -21,7 +22,12 @@ class Review(models.Model):
         related_name="reviews",
     )
 
-    rating = models.PositiveIntegerField()
+    rating = models.PositiveIntegerField(
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(5),
+        ],
+    )
 
     comment = models.TextField()
 
@@ -29,11 +35,29 @@ class Review(models.Model):
         auto_now_add=True,
     )
 
+
     class Meta:
-        ordering = ["-created_at"]
+        ordering = [
+            "-created_at",
+        ]
 
         verbose_name = "Review"
         verbose_name_plural = "Reviews"
 
+        constraints = [
+            models.UniqueConstraint(
+                fields=[
+                    "buyer",
+                    "product",
+                ],
+                name="unique_buyer_product_review",
+            ),
+        ]
+
+
     def __str__(self):
-        return f"{self.product.name} - {self.rating}/5"
+
+        return (
+            f"{self.product.name} "
+            f"- {self.rating}/5"
+        )

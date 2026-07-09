@@ -1,10 +1,17 @@
 from django.db import models
-from django.conf import settings
+
+from farmers.models import FarmerProfile
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    slug = models.SlugField(unique=True)
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+    )
+
+    slug = models.SlugField(
+        unique=True,
+    )
 
     class Meta:
         verbose_name_plural = "Categories"
@@ -15,6 +22,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+
     UNIT_CHOICES = [
         ("kg", "Kilogram"),
         ("bag", "Bag"),
@@ -26,40 +34,53 @@ class Product(models.Model):
     ]
 
     farmer = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        FarmerProfile,
         on_delete=models.CASCADE,
-        related_name="products"
+        related_name="products",
     )
 
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
-        related_name="products"
+        related_name="products",
     )
 
-    name = models.CharField(max_length=200)
+    name = models.CharField(
+        max_length=200,
+    )
+
     description = models.TextField()
 
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+    )
 
     quantity = models.PositiveIntegerField()
 
     unit = models.CharField(
         max_length=20,
         choices=UNIT_CHOICES,
-        default="kg"
+        default="kg",
     )
 
     image = models.ImageField(
         upload_to="products/",
         blank=True,
-        null=True
+        null=True,
     )
 
-    is_available = models.BooleanField(default=True)
+    is_available = models.BooleanField(
+        default=True,
+    )
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True,
+    )
 
     class Meta:
         ordering = ["-created_at"]

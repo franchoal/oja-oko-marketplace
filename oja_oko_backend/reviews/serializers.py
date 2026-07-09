@@ -38,6 +38,7 @@ class ReviewSerializer(serializers.ModelSerializer):
             "created_at",
         ]
 
+
     def validate_rating(self, value):
         """
         Ensure rating is between 1 and 5.

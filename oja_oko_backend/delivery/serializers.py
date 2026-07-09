@@ -37,8 +37,49 @@ class DeliverySerializer(serializers.ModelSerializer):
             "id",
             "order_id",
             "buyer",
-            "status",
-            "tracking_number",
             "created_at",
             "updated_at",
         ]
+
+    def validate_status(self, value):
+        """
+        Validate delivery status progression.
+        """
+
+        delivery = self.instance
+
+        if not delivery:
+            return value
+
+        allowed_transitions = {
+            Delivery.PENDING: [
+                Delivery.ASSIGNED,
+            ],
+
+            Delivery.ASSIGNED: [
+                Delivery.PICKED_UP,
+            ],
+
+            Delivery.PICKED_UP: [
+                Delivery.IN_TRANSIT,
+            ],
+
+            Delivery.IN_TRANSIT: [
+                Delivery.DELIVERED,
+            ],
+        }
+
+        current_status = delivery.status
+
+        if value == current_status:
+            return value
+
+        if value not in allowed_transitions.get(
+            current_status,
+            [],
+        ):
+            raise serializers.ValidationError(
+                "Invalid delivery status transition."
+            )
+
+        return value

@@ -12,6 +12,7 @@ class PaymentAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "order",
+        "get_farmer",
         "method",
         "status",
         "amount",
@@ -27,9 +28,21 @@ class PaymentAdmin(admin.ModelAdmin):
     search_fields = (
         "order__id",
         "order__buyer__email",
+        "order__farmer__farm_name",
+        "order__farmer__user__email",
     )
 
     readonly_fields = (
         "created_at",
         "updated_at",
     )
+
+
+    def get_farmer(self, obj):
+        """
+        Display farmer name in payment admin list.
+        """
+
+        return obj.order.farmer.farm_name
+
+    get_farmer.short_description = "Farmer"

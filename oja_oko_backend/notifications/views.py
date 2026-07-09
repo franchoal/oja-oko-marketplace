@@ -15,10 +15,15 @@ class NotificationListView(generics.ListAPIView):
         permissions.IsAuthenticated,
     ]
 
+
     def get_queryset(self):
+
         return Notification.objects.filter(
             user=self.request.user
+        ).select_related(
+            "user",
         )
+
 
 
 class NotificationDetailView(generics.RetrieveAPIView):
@@ -32,7 +37,11 @@ class NotificationDetailView(generics.RetrieveAPIView):
         permissions.IsAuthenticated,
     ]
 
+
     def get_queryset(self):
+
         return Notification.objects.filter(
             user=self.request.user
+        ).select_related(
+            "user",
         )

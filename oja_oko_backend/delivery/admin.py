@@ -12,6 +12,7 @@ class DeliveryAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "order",
+        "get_farmer",
         "status",
         "tracking_number",
         "estimated_delivery_date",
@@ -26,6 +27,8 @@ class DeliveryAdmin(admin.ModelAdmin):
     search_fields = (
         "order__id",
         "order__buyer__email",
+        "order__farmer__farm_name",
+        "order__farmer__user__email",
         "tracking_number",
     )
 
@@ -33,3 +36,13 @@ class DeliveryAdmin(admin.ModelAdmin):
         "created_at",
         "updated_at",
     )
+
+
+    def get_farmer(self, obj):
+        """
+        Display farmer name in admin list.
+        """
+
+        return obj.order.farmer.farm_name
+
+    get_farmer.short_description = "Farmer"

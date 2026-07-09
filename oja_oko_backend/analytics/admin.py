@@ -1,3 +1,8 @@
-from django.contrib import admin
+"""
+Analytics module.
 
-# Register your models here.
+No database models are registered.
+
+Analytics data is generated dynamically
+through the admin analytics API endpoint.
+"""
