@@ -1,5 +1,8 @@
 from rest_framework import generics, permissions
-from rest_framework.exceptions import PermissionDenied
+from rest_framework.exceptions import (
+    NotFound,
+    PermissionDenied,
+)
 
 from products.models import Product
 
@@ -13,7 +16,16 @@ from .serializers import (
 
 class FarmerProfileView(generics.RetrieveUpdateAPIView):
     """
-    View and update authenticated farmer profile.
+    Retrieve and update the authenticated
+    farmer's profile.
+
+    URL:
+        GET /api/farmers/profile/
+        PUT /api/farmers/profile/
+
+    No primary key is required because
+    each authenticated farmer only owns
+    one profile.
     """
 
     serializer_class = FarmerProfileSerializer
@@ -23,15 +35,24 @@ class FarmerProfileView(generics.RetrieveUpdateAPIView):
         IsFarmer,
     ]
 
-    def get_queryset(self):
-        return FarmerProfile.objects.filter(
-            user=self.request.user
-        )
+    def get_object(self):
+        try:
+            return FarmerProfile.objects.get(
+                user=self.request.user
+            )
+
+        except FarmerProfile.DoesNotExist:
+            raise NotFound(
+                "Farmer profile does not exist. Please create your profile first."
+            )
 
 
 class FarmerProfileCreateView(generics.CreateAPIView):
     """
     Create authenticated farmer profile.
+
+    URL:
+        POST /api/farmers/profile/create/
     """
 
     serializer_class = FarmerProfileSerializer
@@ -57,7 +78,8 @@ class FarmerProfileCreateView(generics.CreateAPIView):
 
 class FarmerProductListCreateView(generics.ListCreateAPIView):
     """
-    Farmers can view and create their own products.
+    Farmers can list and create
+    their own products.
     """
 
     serializer_class = FarmerProductSerializer
@@ -69,27 +91,41 @@ class FarmerProductListCreateView(generics.ListCreateAPIView):
 
     def get_queryset(self):
 
-        return Product.objects.filter(
-            farmer__user=self.request.user
-        ).select_related(
-            "category",
-            "farmer",
+        return (
+            Product.objects.filter(
+                farmer__user=self.request.user
+            )
+            .select_related(
+                "category",
+                "farmer",
+            )
+            .order_by("-created_at")
         )
 
     def perform_create(self, serializer):
 
-        farmer_profile = FarmerProfile.objects.get(
-            user=self.request.user
-        )
+        try:
+            farmer_profile = FarmerProfile.objects.get(
+                user=self.request.user
+            )
+
+        except FarmerProfile.DoesNotExist:
+            raise PermissionDenied(
+                "Please create your farmer profile before adding products."
+            )
 
         serializer.save(
             farmer=farmer_profile
         )
 
 
-class FarmerProductDetailView(generics.RetrieveUpdateDestroyAPIView):
+class FarmerProductDetailView(
+    generics.RetrieveUpdateDestroyAPIView
+):
     """
-    Farmers can view, update, and delete their own products.
+    Retrieve, update and delete
+    products belonging to the
+    authenticated farmer only.
     """
 
     serializer_class = FarmerProductSerializer
@@ -101,9 +137,12 @@ class FarmerProductDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
 
-        return Product.objects.filter(
-            farmer__user=self.request.user
-        ).select_related(
-            "category",
-            "farmer",
+        return (
+            Product.objects.filter(
+                farmer__user=self.request.user
+            )
+            .select_related(
+                "category",
+                "farmer",
+            )
         )

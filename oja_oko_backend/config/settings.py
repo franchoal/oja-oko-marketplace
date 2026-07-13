@@ -1,17 +1,11 @@
-"""
-Django settings for Oja-Oko Marketplace.
-
-Development Configuration
-"""
-
-from pathlib import Path
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-
 # ==========================================================
 # SECURITY
 # ==========================================================
+from pathlib import Path
+from datetime import timedelta
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+from datetime import timedelta
 
 SECRET_KEY = "django-insecure-change-this-later"
 
@@ -44,7 +38,8 @@ INSTALLED_APPS = [
 
     # Local Apps
     "accounts",
-    'products',
+    "products",
+    "farmers",
     "cart",
     "orders",
     "payments",
@@ -52,7 +47,6 @@ INSTALLED_APPS = [
     "notifications",
     "reviews",
     "analytics",
-    "farmers",
 ]
 
 
@@ -79,6 +73,10 @@ MIDDLEWARE = [
 ]
 
 
+# ==========================================================
+# URLS
+# ==========================================================
+
 ROOT_URLCONF = "config.urls"
 
 
@@ -102,15 +100,19 @@ TEMPLATES = [
 ]
 
 
+# ==========================================================
+# WSGI
+# ==========================================================
+
 WSGI_APPLICATION = "config.wsgi.application"
 
 
 # ==========================================================
 # DATABASE
-#
-# SQLite for initial development.
-# PostgreSQL will replace this in the next sprint.
 # ==========================================================
+
+# SQLite for development.
+# Switch to PostgreSQL before production deployment.
 
 DATABASES = {
     "default": {
@@ -159,8 +161,6 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-STATICFILES_DIRS = []
-
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
@@ -169,6 +169,7 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # ==========================================================
 
 MEDIA_URL = "/media/"
+
 MEDIA_ROOT = BASE_DIR / "media"
 
 
@@ -196,6 +197,8 @@ REST_FRAMEWORK = {
 
         "rest_framework_simplejwt.authentication.JWTAuthentication",
 
+        "rest_framework.authentication.SessionAuthentication",
+
     ),
 
     "DEFAULT_PERMISSION_CLASSES": (
@@ -207,7 +210,30 @@ REST_FRAMEWORK = {
 
 
 # ==========================================================
+# SIMPLE JWT
+# ==========================================================
+
+SIMPLE_JWT = {
+
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+
+    "ROTATE_REFRESH_TOKENS": False,
+
+    "BLACKLIST_AFTER_ROTATION": False,
+
+    "UPDATE_LAST_LOGIN": True,
+
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
+
+
+# ==========================================================
 # CORS
 # ==========================================================
+
+# Development only.
+# Restrict origins when deploying to production.
 
 CORS_ALLOW_ALL_ORIGINS = True

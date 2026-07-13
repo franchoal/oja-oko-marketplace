@@ -1,12 +1,27 @@
 from rest_framework import filters, generics, permissions
 
-from .models import Product
+from .models import Category, Product
 from .permissions import IsFarmerOrReadOnly, IsOwnerOrReadOnly
 from .serializers import (
+    CategorySerializer,
     ProductCreateUpdateSerializer,
     ProductDetailSerializer,
     ProductListSerializer,
 )
+
+
+class CategoryListView(generics.ListAPIView):
+    """
+    Public category listing.
+    """
+
+    queryset = Category.objects.order_by("name")
+
+    serializer_class = CategorySerializer
+
+    permission_classes = [
+        permissions.AllowAny,
+    ]
 
 
 class ProductListView(generics.ListAPIView):
@@ -24,6 +39,7 @@ class ProductListView(generics.ListAPIView):
     )
 
     serializer_class = ProductListSerializer
+
     permission_classes = [
         permissions.AllowAny,
     ]
@@ -59,6 +75,7 @@ class ProductDetailView(generics.RetrieveAPIView):
     )
 
     serializer_class = ProductDetailSerializer
+
     permission_classes = [
         permissions.AllowAny,
     ]
@@ -80,7 +97,6 @@ class ProductCreateView(generics.CreateAPIView):
     ]
 
     def perform_create(self, serializer):
-
         serializer.save(
             farmer=self.request.user.farmer_profile
         )
