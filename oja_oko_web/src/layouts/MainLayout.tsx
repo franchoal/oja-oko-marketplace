@@ -116,53 +116,40 @@ const MainLayout = () => {
               <>
 
                 {/* Buyer */}
+              {user?.role === "buyer" && (
+  <>
+    <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700">
+      Buyer
+    </span>
 
-                {user?.role === "buyer" && (
+    <Link
+      to="/products"
+      className="font-medium text-gray-700 transition hover:text-green-700"
+    >
+      Continue Shopping
+    </Link>
+<Link
+  to="/orders"
+  className="font-medium text-gray-700 transition hover:text-green-700"
+>
+  My Orders
+</Link>
 
-                  <>
+<Link
+  to="/cart"
+  className="relative font-medium text-gray-700 transition hover:text-green-700"
+>
+  Cart
 
-                    <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700">
-                      Buyer
-                    </span>
-
-
-
-                    <Link
-                      to="/products"
-                      className="font-medium text-gray-700 transition hover:text-green-700"
-                    >
-                      Continue Shopping
-                    </Link>
-
-
-
-                    {/* Cart */}
-
-                    <Link
-                      to="/cart"
-                      className="relative font-medium text-gray-700 transition hover:text-green-700"
-                    >
-
-                      🛒 Cart
-
-
-                      {cartCount > 0 && (
-
-                        <span
-                          className="absolute -right-4 -top-3 rounded-full bg-green-600 px-2 py-0.5 text-xs font-bold text-white"
-                        >
-                          {cartCount}
-                        </span>
-
-                      )}
-
-                    </Link>
-
-
-                  </>
-
-                )}
-
+  {cartCount > 0 && (
+    <span className="absolute -right-4 -top-3 rounded-full bg-green-600 px-2 py-0.5 text-xs font-bold text-white">
+      {cartCount}
+    </span>
+  )}
+</Link>
+   
+  </>
+)}
 
 
                 {/* Farmer */}

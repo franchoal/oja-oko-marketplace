@@ -183,12 +183,7 @@ const CartPage = () => {
     total={cart.total}
   />
 
-  <Link
-    to="/checkout"
-    className="block rounded-lg bg-green-600 px-6 py-3 text-center font-semibold text-white transition hover:bg-green-700"
-  >
-    Proceed To Checkout
-  </Link>
+
 
 </section>
 

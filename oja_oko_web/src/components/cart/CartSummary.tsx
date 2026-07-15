@@ -1,25 +1,20 @@
+import { Link } from "react-router-dom";
+
 import { Button, Card } from "../ui";
 
-
 interface CartSummaryProps {
-
   total: string;
-
 }
-
 
 const CartSummary = ({
   total,
 }: CartSummaryProps) => {
-
   return (
-
     <Card className="p-6">
 
       <h2 className="text-xl font-semibold">
         Cart Summary
       </h2>
-
 
       <div className="mt-6 flex items-center justify-between">
 
@@ -27,32 +22,24 @@ const CartSummary = ({
           Total
         </span>
 
-
         <span className="text-2xl font-bold text-green-700">
-
           ₦
-          {Number(
-            total
-          ).toLocaleString()}
-
+          {Number(total).toLocaleString()}
         </span>
-
 
       </div>
 
-
-      <Button
-        className="mt-6 w-full"
+      <Link
+        to="/checkout"
+        className="mt-6 block"
       >
-        Proceed to Checkout
-      </Button>
-
+        <Button className="w-full">
+          Proceed to Checkout
+        </Button>
+      </Link>
 
     </Card>
-
   );
-
 };
-
 
 export default CartSummary;

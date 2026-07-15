@@ -73,15 +73,26 @@ class CheckoutView(generics.GenericAPIView):
             raise_exception=True
         )
 
-        results = checkout(
-            buyer=request.user,
-            delivery_address=serializer.validated_data[
-                "delivery_address"
-            ],
-            payment_method=serializer.validated_data[
-                "payment_method"
-            ],
-        )
+        try:
+
+            results = checkout(
+                buyer=request.user,
+                delivery_address=serializer.validated_data[
+                    "delivery_address"
+                ],
+                payment_method=serializer.validated_data[
+                    "payment_method"
+                ],
+            )
+
+        except ValueError as exc:
+
+            return Response(
+                {
+                    "detail": str(exc),
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         orders_response = []
 
@@ -115,9 +126,7 @@ class CheckoutView(generics.GenericAPIView):
 
         return Response(
             {
-                "message": (
-                    "Checkout completed successfully."
-                ),
+                "message": "Checkout completed successfully.",
                 "orders": orders_response,
             },
             status=status.HTTP_201_CREATED,
