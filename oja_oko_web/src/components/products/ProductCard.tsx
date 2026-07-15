@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import type { Product } from "../../types/product";
 import { Card, Button } from "../ui";
 
@@ -9,7 +11,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <Card className="overflow-hidden p-0">
       <img
-        src={product.image}
+        src={product.image ?? "/placeholder-product.png"}
         alt={product.name}
         className="h-56 w-full object-cover"
       />
@@ -31,7 +33,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
         <div className="flex items-center justify-between">
           <span className="text-xl font-bold text-green-700">
-            ₦{product.price}
+            ₦{Number(product.price).toLocaleString()}
           </span>
 
           <span className="text-sm">
@@ -52,9 +54,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
               : "Unavailable"}
           </span>
 
-          <Button>
-            View Details
-          </Button>
+          <Link to={`/products/${product.id}`}>
+            <Button>
+              View Details
+            </Button>
+          </Link>
         </div>
       </div>
     </Card>

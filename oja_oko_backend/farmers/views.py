@@ -115,7 +115,9 @@ class FarmerProductListCreateView(generics.ListCreateAPIView):
             )
 
         serializer.save(
-            farmer=farmer_profile
+            farmer=farmer_profile,
+            is_available=True
+            
         )
 
 

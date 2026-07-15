@@ -14,12 +14,15 @@ const FarmerPortalPage = () => {
 
             <h1 className="mt-6 text-5xl font-bold leading-tight text-gray-900">
               Farmer
-              <span className="text-green-700"> Portal</span>
+              <span className="text-green-700">
+                {" "}
+                Portal
+              </span>
             </h1>
 
             <p className="mt-6 text-lg leading-8 text-gray-600">
               Grow your agricultural business by connecting directly with
-              thousands of buyers across Nigeria.
+              buyers across Nigeria.
             </p>
 
             <div className="mt-10 space-y-5">
@@ -32,7 +35,8 @@ const FarmerPortalPage = () => {
                   </h3>
 
                   <p className="text-gray-600">
-                    Set up your farm profile and build trust with buyers.
+                    Build trust with buyers by creating a complete farm
+                    profile.
                   </p>
                 </div>
               </div>
@@ -46,7 +50,7 @@ const FarmerPortalPage = () => {
                   </h3>
 
                   <p className="text-gray-600">
-                    List fresh agricultural products for customers nationwide.
+                    List agricultural products and reach customers nationwide.
                   </p>
                 </div>
               </div>
@@ -60,8 +64,7 @@ const FarmerPortalPage = () => {
                   </h3>
 
                   <p className="text-gray-600">
-                    Receive, process and track customer orders from one
-                    dashboard.
+                    Track orders and manage your business from one dashboard.
                   </p>
                 </div>
               </div>
@@ -75,7 +78,7 @@ const FarmerPortalPage = () => {
                   </h3>
 
                   <p className="text-gray-600">
-                    Monitor your sales performance and expand your reach.
+                    Monitor performance and expand your agricultural business.
                   </p>
                 </div>
               </div>
@@ -85,13 +88,13 @@ const FarmerPortalPage = () => {
           {/* Right Card */}
 
           <div className="rounded-3xl bg-white p-10 shadow-2xl">
-            <h2 className="text-3xl font-bold text-center text-gray-900">
+            <h2 className="text-center text-3xl font-bold text-gray-900">
               Welcome Farmer
             </h2>
 
             <p className="mt-4 text-center text-gray-600">
-              Sign in to your existing account or create a new farmer account to
-              start selling on Oja-Oko Marketplace.
+              Access your farmer account or create one to begin selling on
+              Oja-Oko Marketplace.
             </p>
 
             <div className="mt-10 space-y-4">
@@ -99,7 +102,7 @@ const FarmerPortalPage = () => {
                 to="/login/farmer"
                 className="block w-full rounded-xl bg-green-600 px-6 py-4 text-center font-semibold text-white transition hover:bg-green-700"
               >
-                Sign In
+                Farmer Login
               </Link>
 
               <Link
@@ -129,10 +132,10 @@ const FarmerPortalPage = () => {
               </h3>
 
               <ul className="mt-3 space-y-2 text-sm text-gray-700">
-                <li>✓ Reach more buyers across Nigeria</li>
-                <li>✓ Manage products with ease</li>
+                <li>✓ Reach buyers across Nigeria</li>
+                <li>✓ Manage products easily</li>
                 <li>✓ Secure order management</li>
-                <li>✓ Business insights and analytics</li>
+                <li>✓ Sales analytics and business insights</li>
               </ul>
             </div>
           </div>

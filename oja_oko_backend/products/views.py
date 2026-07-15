@@ -34,7 +34,9 @@ class ProductListView(generics.ListAPIView):
             "farmer",
             "category",
         )
-        .filter(is_available=True)
+        .filter(is_available=True,
+                farmer__is_verified=True,
+        )
         .order_by("-created_at")
     )
 

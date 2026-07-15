@@ -4,6 +4,8 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 
 import { authService } from "../services/authService";
+import { farmerService } from "../services/farmerService";
+
 import { useAuthStore } from "../store/authStore";
 
 
@@ -17,24 +19,20 @@ export const useLogin = () => {
   );
 
 
-
   return useMutation({
 
     mutationFn: authService.login,
 
 
-    onSuccess: (response) => {
-
-
-      console.log("LOGIN RESPONSE");
-      console.log(response);
-
+    onSuccess: async (response) => {
 
 
       /*
-      Save authenticated user
-      and JWT tokens
+      ==========================================
+      Save Authentication
+      ==========================================
       */
+
 
       login({
 
@@ -48,14 +46,6 @@ export const useLogin = () => {
 
 
 
-      console.log("STORE AFTER LOGIN");
-
-      console.log(
-        useAuthStore.getState()
-      );
-
-
-
       toast.success(
         "Login successful!"
       );
@@ -63,14 +53,18 @@ export const useLogin = () => {
 
 
       /*
-      Role based navigation
+      ==========================================
+      FARMER FLOW
 
-      Farmer:
-      dashboard and product management
+      Login
+        ↓
+      Check profile
+        ↓
+      Exists → Dashboard
+        ↓
+      Missing → Create Profile
 
-      Buyer:
-      marketplace browsing
-
+      ==========================================
       */
 
 
@@ -79,18 +73,76 @@ export const useLogin = () => {
       ) {
 
 
-        navigate(
-          "/farmer/dashboard",
-          {
-            replace: true,
+        try {
+
+
+          await farmerService.getProfile();
+
+
+
+          navigate(
+            "/farmer/dashboard",
+            {
+              replace:true,
+            }
+          );
+
+
+
+        } catch (error) {
+
+
+
+          if (
+
+            axios.isAxiosError(error)
+
+            &&
+
+            error.response?.status === 404
+
+          ) {
+
+
+            navigate(
+              "/farmer/profile",
+              {
+                replace:true,
+              }
+            );
+
+
+            return;
+
           }
-        );
+
+
+
+          console.error(
+            "Farmer profile verification failed",
+            error
+          );
+
+
+          toast.error(
+            "Unable to verify farmer profile."
+          );
+
+
+        }
 
 
         return;
 
       }
 
+
+
+      /*
+      ==========================================
+      BUYER FLOW
+      ==========================================
+      */
 
 
       if (
@@ -101,7 +153,7 @@ export const useLogin = () => {
         navigate(
           "/products",
           {
-            replace: true,
+            replace:true,
           }
         );
 
@@ -113,13 +165,16 @@ export const useLogin = () => {
 
 
       /*
-      Fallback if role is missing
+      ==========================================
+      UNKNOWN ROLE
+      ==========================================
       */
+
 
       navigate(
         "/",
         {
-          replace: true,
+          replace:true,
         }
       );
 
@@ -137,11 +192,17 @@ export const useLogin = () => {
 
 
         const message =
-          error.response?.data?.detail ||
+
+          error.response?.data?.detail
+
+          ||
+
           "Invalid email or password.";
 
 
-        toast.error(message);
+        toast.error(
+          message
+        );
 
 
         return;

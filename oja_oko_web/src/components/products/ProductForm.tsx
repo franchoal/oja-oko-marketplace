@@ -27,11 +27,17 @@ interface ProductFormProps {
   ) => void;
 
   isSubmitting?: boolean;
+
+  initialValues?: Partial<ProductFormData>;
+
+  submitLabel?: string;
 }
 
 const ProductForm = ({
   onSubmit,
   isSubmitting = false,
+  initialValues,
+  submitLabel = "Save Product",
 }: ProductFormProps) => {
 
   const {
@@ -51,6 +57,8 @@ const ProductForm = ({
     },
   } = useForm<ProductFormInput>({
     resolver: zodResolver(productSchema),
+
+    defaultValues: initialValues,
   });
 
   const onValid = (
@@ -67,6 +75,7 @@ const ProductForm = ({
     console.log(parsedData);
 
     onSubmit(parsedData);
+
   };
 
   const onInvalid = (
@@ -78,7 +87,7 @@ const ProductForm = ({
 
   };
 
-  return (
+    return (
 
     <form
       onSubmit={handleSubmit(
@@ -101,25 +110,30 @@ const ProductForm = ({
           disabled={categoriesLoading}
           className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-green-600 focus:outline-none"
         >
+
           <option value="">
             Select Category
           </option>
 
           {categories?.map((category) => (
+
             <option
               key={category.id}
               value={category.id}
             >
               {category.name}
             </option>
+
           ))}
 
         </select>
 
         {errors.category && (
+
           <p className="mt-1 text-sm text-red-500">
             {errors.category.message}
           </p>
+
         )}
 
       </div>
@@ -149,9 +163,11 @@ const ProductForm = ({
         />
 
         {errors.description && (
+
           <p className="mt-1 text-sm text-red-500">
             {errors.description.message}
           </p>
+
         )}
 
       </div>
@@ -175,7 +191,8 @@ const ProductForm = ({
         {...register("quantity")}
         error={errors.quantity?.message}
       />
-          {/* Unit */}
+
+      {/* Unit */}
 
       <div>
 
@@ -187,6 +204,7 @@ const ProductForm = ({
           {...register("unit")}
           className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-green-600 focus:outline-none"
         >
+
           <option value="">
             Select Unit
           </option>
@@ -222,9 +240,11 @@ const ProductForm = ({
         </select>
 
         {errors.unit && (
+
           <p className="mt-1 text-sm text-red-500">
             {errors.unit.message}
           </p>
+
         )}
 
       </div>
@@ -316,7 +336,7 @@ const ProductForm = ({
         >
           {isSubmitting
             ? "Saving Product..."
-            : "Save Product"}
+            : submitLabel}
         </Button>
 
       </div>

@@ -17,8 +17,8 @@ const FarmerProfilePage = () => {
         <p className="mt-4 max-w-3xl text-lg leading-8 text-gray-600">
           Before you can start selling on Oja-Oko Marketplace,
           tell buyers about your farm. A complete farm profile
-          builds trust, improves visibility and allows you to
-          manage your products and orders.
+          builds trust, improves visibility and unlocks your
+          farmer dashboard.
         </p>
       </div>
 
@@ -26,7 +26,9 @@ const FarmerProfilePage = () => {
 
       <div className="mb-10 grid gap-6 md:grid-cols-3">
         <div className="rounded-xl border bg-white p-6">
-          <div className="mb-3 text-3xl">🌱</div>
+          <div className="mb-3 text-3xl">
+            🌱
+          </div>
 
           <h3 className="font-semibold text-gray-900">
             Build Trust
@@ -34,33 +36,37 @@ const FarmerProfilePage = () => {
 
           <p className="mt-2 text-sm text-gray-600">
             Buyers are more likely to purchase from farmers
-            with complete and verified profiles.
+            with complete and verified farm information.
           </p>
         </div>
 
         <div className="rounded-xl border bg-white p-6">
-          <div className="mb-3 text-3xl">🛒</div>
+          <div className="mb-3 text-3xl">
+            🛒
+          </div>
 
           <h3 className="font-semibold text-gray-900">
             Start Selling
           </h3>
 
           <p className="mt-2 text-sm text-gray-600">
-            Your farm profile must be completed before you can
-            list agricultural products.
+            Your farmer profile must be completed before you
+            can list products on the marketplace.
           </p>
         </div>
 
         <div className="rounded-xl border bg-white p-6">
-          <div className="mb-3 text-3xl">📈</div>
+          <div className="mb-3 text-3xl">
+            📈
+          </div>
 
           <h3 className="font-semibold text-gray-900">
             Grow Your Business
           </h3>
 
           <p className="mt-2 text-sm text-gray-600">
-            Manage products, receive orders and track your
-            business growth from one dashboard.
+            Access product management, orders, customers and
+            future sales analytics from your dashboard.
           </p>
         </div>
       </div>

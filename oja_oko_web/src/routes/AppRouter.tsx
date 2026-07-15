@@ -3,8 +3,12 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 
 import HomePage from "../pages/Home/HomePage";
+
 import ProductsPage from "../pages/Products/ProductsPage";
+import ProductDetailsPage from "../pages/Products/ProductDetailsPage";
+
 import CreateProductPage from "../pages/Products/CreateProductPage";
+import EditProductPage from "../pages/Products/EditProductPage";
 
 import LoginPage from "../pages/Login/LoginPage";
 import RegisterPage from "../pages/Register/RegisterPage";
@@ -12,7 +16,7 @@ import RegisterPage from "../pages/Register/RegisterPage";
 import FarmerPortalPage from "../pages/Farmer/FarmerPortalPage";
 import FarmerDashboardPage from "../pages/Farmer/FarmerDashboardPage";
 import FarmerProfilePage from "../pages/Farmer/FarmerProfilePage";
-
+import CartPage from "../pages/Cart/CartPage";
 import ProtectedRoute from "./ProtectedRoute";
 import FarmerRoute from "./FarmerRoute";
 
@@ -34,7 +38,9 @@ export const router = createBrowserRouter([
       },
 
       /*
-      Public Marketplace
+      ======================================
+      PUBLIC MARKETPLACE
+      ======================================
       */
 
       {
@@ -42,15 +48,23 @@ export const router = createBrowserRouter([
         element: <ProductsPage />,
       },
 
-      /*
-      Farmer Landing Portal
+      {
+        path: "products/:id",
+        element: <ProductDetailsPage />,
+      },
 
-      This is the public entry point
-      for all farmers.
+      /*
+      ======================================
+      FARMER LANDING PORTAL
+      ======================================
+
+      Public entry point for farmers.
 
       Existing farmers can log in.
 
       New farmers can register.
+
+      ======================================
       */
 
       {
@@ -68,38 +82,22 @@ export const router = createBrowserRouter([
 
   {
     path: "/login",
-    element: (
-      <LoginPage
-        accountType="buyer"
-      />
-    ),
+    element: <LoginPage accountType="buyer" />,
   },
 
   {
     path: "/login/buyer",
-    element: (
-      <LoginPage
-        accountType="buyer"
-      />
-    ),
+    element: <LoginPage accountType="buyer" />,
   },
 
   {
     path: "/register",
-    element: (
-      <RegisterPage
-        accountType="buyer"
-      />
-    ),
+    element: <RegisterPage accountType="buyer" />,
   },
 
   {
     path: "/register/buyer",
-    element: (
-      <RegisterPage
-        accountType="buyer"
-      />
-    ),
+    element: <RegisterPage accountType="buyer" />,
   },
 
   /*
@@ -110,20 +108,12 @@ export const router = createBrowserRouter([
 
   {
     path: "/login/farmer",
-    element: (
-      <LoginPage
-        accountType="farmer"
-      />
-    ),
+    element: <LoginPage accountType="farmer" />,
   },
 
   {
     path: "/register/farmer",
-    element: (
-      <RegisterPage
-        accountType="farmer"
-      />
-    ),
+    element: <RegisterPage accountType="farmer" />,
   },
 
   /*
@@ -139,13 +129,6 @@ export const router = createBrowserRouter([
       /*
       ======================================
       FARMER MODULE
-      ======================================
-
-      Requires:
-
-      • Authenticated User
-      • Farmer Role
-
       ======================================
       */
 
@@ -168,14 +151,17 @@ export const router = createBrowserRouter([
             element: <CreateProductPage />,
           },
 
+          {
+            path: "/farmer/products/:id/edit",
+            element: <EditProductPage />,
+          },
+
           /*
           Future Farmer Routes
 
           /farmer/products
 
           /farmer/products/:id
-
-          /farmer/products/:id/edit
 
           /farmer/orders
 
@@ -184,7 +170,6 @@ export const router = createBrowserRouter([
           /farmer/analytics
 
           /farmer/settings
-
           */
         ],
       },
@@ -197,7 +182,7 @@ export const router = createBrowserRouter([
       a dashboard.
 
       Future:
-
+    
       /cart
 
       /checkout
@@ -212,6 +197,10 @@ export const router = createBrowserRouter([
 
       ======================================
       */
+      {
+        path: "/cart",
+        element: <CartPage />,
+      },
     ],
   },
 

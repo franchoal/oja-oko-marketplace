@@ -1,4 +1,8 @@
-import { useMutation } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
+
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
@@ -9,6 +13,9 @@ import type { FarmerProfile } from "../services/farmerService";
 export const useCreateFarmerProfile = (
   onSuccess?: () => void
 ) => {
+  const queryClient =
+    useQueryClient();
+
   return useMutation({
     mutationFn: (
       data: Omit<
@@ -20,10 +27,22 @@ export const useCreateFarmerProfile = (
         data
       ),
 
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(
         "Farm profile created successfully!"
       );
+
+      /*
+      ==========================================
+      Refresh Farmer Profile
+      ==========================================
+      */
+
+      await queryClient.invalidateQueries({
+        queryKey: [
+          "farmer-profile",
+        ],
+      });
 
       if (onSuccess) {
         onSuccess();
@@ -31,7 +50,9 @@ export const useCreateFarmerProfile = (
     },
 
     onError: (error) => {
-      if (axios.isAxiosError(error)) {
+      if (
+        axios.isAxiosError(error)
+      ) {
         console.error(
           error.response?.data
         );

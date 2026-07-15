@@ -45,7 +45,6 @@ class FarmerProductSerializer(serializers.ModelSerializer):
     Farmer ownership is handled automatically
     from the authenticated farmer profile.
     """
-
     category_name = serializers.CharField(
         source="category.name",
         read_only=True,

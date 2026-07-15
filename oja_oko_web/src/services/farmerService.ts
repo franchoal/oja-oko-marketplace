@@ -18,6 +18,8 @@ export interface FarmerProfile {
 
 export interface FarmerProduct {
   id: number;
+  category: number;
+  category_name: string;
   name: string;
   description: string;
   price: string;
@@ -25,7 +27,6 @@ export interface FarmerProduct {
   unit: string;
   image: string | null;
   is_available: boolean;
-  category_name: string;
 }
 
 export interface CreateFarmerProductData {
@@ -35,6 +36,16 @@ export interface CreateFarmerProductData {
   price: number;
   quantity: number;
   unit: string;
+  image?: File | null;
+}
+
+export interface UpdateFarmerProductData {
+  category?: number;
+  name?: string;
+  description?: string;
+  price?: number;
+  quantity?: number;
+  unit?: string;
   image?: File | null;
 }
 
@@ -55,10 +66,7 @@ export const farmerService = {
   },
 
   createProfile: async (
-    data: Omit<
-      FarmerProfile,
-      "id" | "is_verified"
-    >
+    data: Omit<FarmerProfile, "id" | "is_verified">
   ) => {
     const response = await api.post(
       "/farmers/profile/create/",
@@ -69,10 +77,7 @@ export const farmerService = {
   },
 
   updateProfile: async (
-    data: Omit<
-      FarmerProfile,
-      "id" | "is_verified"
-    >
+    data: Omit<FarmerProfile, "id" | "is_verified">
   ) => {
     const response = await api.put(
       "/farmers/profile/",
@@ -88,11 +93,19 @@ export const farmerService = {
    * ==============================
    */
 
-  getMyProducts: async (): Promise<
-    FarmerProduct[]
-  > => {
+  getMyProducts: async (): Promise<FarmerProduct[]> => {
     const response = await api.get(
       "/farmers/products/"
+    );
+
+    return response.data;
+  },
+
+  getProduct: async (
+    id: number
+  ): Promise<FarmerProduct> => {
+    const response = await api.get(
+      `/farmers/products/${id}/`
     );
 
     return response.data;
@@ -133,14 +146,7 @@ export const farmerService = {
       data.unit
     );
 
-    /**
-     * Append image only if
-     * a valid File object exists.
-     */
-
-    if (
-      data.image instanceof File
-    ) {
+    if (data.image instanceof File) {
       formData.append(
         "image",
         data.image,
@@ -148,41 +154,83 @@ export const farmerService = {
       );
     }
 
-    /**
-     * Debug FormData
-     */
-
-    console.group(
-      "CREATE PRODUCT FORMDATA"
-    );
-
-    for (const [
-      key,
-      value,
-    ] of formData.entries()) {
-      console.log(key, value);
-    }
-
-    console.groupEnd();
-
-    /**
-     * IMPORTANT:
-     *
-     * Do NOT manually set
-     * Content-Type.
-     *
-     * Axios/browser will automatically
-     * generate:
-     *
-     * multipart/form-data;
-     * boundary=----------
-     */
-
     const response = await api.post(
       "/farmers/products/",
       formData
     );
 
     return response.data;
+  },
+
+  updateProduct: async (
+    id: number,
+    data: UpdateFarmerProductData
+  ) => {
+    const formData = new FormData();
+
+    if (data.category !== undefined) {
+      formData.append(
+        "category",
+        String(data.category)
+      );
+    }
+
+    if (data.name !== undefined) {
+      formData.append(
+        "name",
+        data.name
+      );
+    }
+
+    if (data.description !== undefined) {
+      formData.append(
+        "description",
+        data.description
+      );
+    }
+
+    if (data.price !== undefined) {
+      formData.append(
+        "price",
+        String(data.price)
+      );
+    }
+
+    if (data.quantity !== undefined) {
+      formData.append(
+        "quantity",
+        String(data.quantity)
+      );
+    }
+
+    if (data.unit !== undefined) {
+      formData.append(
+        "unit",
+        data.unit
+      );
+    }
+
+    if (data.image instanceof File) {
+      formData.append(
+        "image",
+        data.image,
+        data.image.name
+      );
+    }
+
+    const response = await api.patch(
+      `/farmers/products/${id}/`,
+      formData
+    );
+
+    return response.data;
+  },
+
+  deleteProduct: async (
+    id: number
+  ) => {
+    await api.delete(
+      `/farmers/products/${id}/`
+    );
   },
 };

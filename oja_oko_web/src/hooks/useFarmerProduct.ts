@@ -4,18 +4,21 @@ import {
   farmerService,
 } from "../services/farmerService";
 
-
-export const useFarmerProducts = () => {
+export const useFarmerProduct = (
+  id: number
+) => {
 
   return useQuery({
 
     queryKey: [
-      "farmer-products",
+      "farmer-product",
+      id,
     ],
 
+    queryFn: () =>
+      farmerService.getProduct(id),
 
-    queryFn:
-      farmerService.getMyProducts,
+    enabled: !!id,
 
   });
 
