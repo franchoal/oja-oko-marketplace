@@ -4,11 +4,12 @@ import MainLayout from "../layouts/MainLayout";
 import CheckoutPage from "../pages/Checkout/CheckoutPage";
 import OrdersPage from "../pages/Orders/OrdersPage";
 import HomePage from "../pages/Home/HomePage";
-
+import FarmerOrdersPage from "../pages/Farmer/FarmerOrdersPage";
+import FarmerOrderDetailsPage from "../pages/Farmer/FarmerOrderDetailsPage";
 
 import ProductsPage from "../pages/Products/ProductsPage";
 import ProductDetailsPage from "../pages/Products/ProductDetailsPage";
-
+import OrderDetailsPage from "../pages/Orders/OrderDetailsPage";
 import CreateProductPage from "../pages/Products/CreateProductPage";
 import EditProductPage from "../pages/Products/EditProductPage";
 
@@ -144,6 +145,16 @@ export const router = createBrowserRouter([
           },
 
           {
+           path: "/farmer/orders",
+          element: <FarmerOrdersPage />,
+          },
+
+          {
+           path: "/farmer/orders/:id",
+           element: <FarmerOrderDetailsPage />,
+          },
+
+          {
             path: "/farmer/profile",
             element: <FarmerProfilePage />,
           },
@@ -211,6 +222,11 @@ export const router = createBrowserRouter([
       {
        path: "/orders",
        element: <OrdersPage />,
+      },
+
+      {
+       path: "/orders/:id",
+       element: <OrderDetailsPage />,
       },
     ],
   },

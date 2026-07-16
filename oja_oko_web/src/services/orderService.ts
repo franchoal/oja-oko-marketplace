@@ -25,10 +25,24 @@ export interface Order {
   updated_at: string;
 }
 
+export interface UpdateOrderStatusData {
+  status:
+    | "accepted"
+    | "processing"
+    | "ready"
+    | "out_for_delivery"
+    | "delivered"
+    | "completed"
+    | "cancelled";
+}
+
 export const orderService = {
-  /**
-   * Buyer Checkout
-   */
+  /*
+  ==========================================
+  BUYER
+  ==========================================
+  */
+
   checkout: async (data: CheckoutData) => {
     const response = await api.post(
       "/orders/checkout/",
@@ -38,9 +52,6 @@ export const orderService = {
     return response.data;
   },
 
-  /**
-   * Buyer Orders
-   */
   getOrders: async (): Promise<Order[]> => {
     const response = await api.get<Order[]>(
       "/orders/"
@@ -49,14 +60,47 @@ export const orderService = {
     return response.data;
   },
 
-  /**
-   * Order Details
-   */
   getOrder: async (
     id: number
   ): Promise<Order> => {
     const response = await api.get<Order>(
       `/orders/${id}/`
+    );
+
+    return response.data;
+  },
+
+  /*
+  ==========================================
+  FARMER
+  ==========================================
+  */
+
+  getFarmerOrders: async (): Promise<Order[]> => {
+    const response = await api.get<Order[]>(
+      "/orders/farmer/"
+    );
+
+    return response.data;
+  },
+
+  getFarmerOrder: async (
+    id: number
+  ): Promise<Order> => {
+    const response = await api.get<Order>(
+      `/orders/farmer/${id}/`
+    );
+
+    return response.data;
+  },
+
+  updateFarmerOrderStatus: async (
+    id: number,
+    data: UpdateOrderStatusData
+  ): Promise<Order> => {
+    const response = await api.patch<Order>(
+      `/orders/farmer/${id}/`,
+      data
     );
 
     return response.data;

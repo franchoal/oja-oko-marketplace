@@ -82,53 +82,52 @@ const OrdersPage = () => {
           <div className="space-y-5">
 
             {
-              orders.map((order) => (
+  orders.map((order) => (
 
-                <Card
-                  key={order.id}
-                  className="flex items-center justify-between"
-                >
+    <Link
+      key={order.id}
+      to={`/orders/${order.id}`}
+      className="block"
+    >
 
-                  <div>
+      <Card className="flex items-center justify-between transition hover:border-green-500 hover:shadow-lg">
 
-                    <h2 className="font-semibold">
-                      Order #{order.id}
-                    </h2>
+        <div>
 
+          <h2 className="font-semibold">
+            Order #{order.id}
+          </h2>
 
-                    <p className="text-gray-500">
-                      Farmer: {order.farmer}
-                    </p>
+          <p className="text-gray-500">
+            Farmer: {order.farmer}
+          </p>
 
+          <p className="text-gray-500">
+            {new Date(
+              order.created_at
+            ).toLocaleDateString()}
+          </p>
 
-                    <p className="text-gray-500">
-                      {new Date(
-                        order.created_at
-                      ).toLocaleDateString()}
-                    </p>
+        </div>
 
-                  </div>
+        <div className="text-right">
 
+          <p className="text-xl font-bold text-green-700">
+            ₦{Number(order.total).toLocaleString()}
+          </p>
 
-                  <div className="text-right">
+          <span className="rounded-full bg-yellow-100 px-3 py-1 text-sm text-yellow-700">
+            {order.status}
+          </span>
 
-                    <p className="text-xl font-bold text-green-700">
-                      ₦{Number(order.total).toLocaleString()}
-                    </p>
+        </div>
 
+      </Card>
 
-                    <span className="rounded-full bg-yellow-100 px-3 py-1 text-sm text-yellow-700">
-                      {order.status}
-                    </span>
+    </Link>
 
-                  </div>
-
-
-                </Card>
-
-              ))
-            }
-
+  ))
+}
           </div>
 
         )
