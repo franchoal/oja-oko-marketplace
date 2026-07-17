@@ -116,7 +116,8 @@ const MainLayout = () => {
               <>
 
                 {/* Buyer */}
-              {user?.role === "buyer" && (
+           {/* Buyer */}
+{user?.role === "buyer" && (
   <>
     <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700">
       Buyer
@@ -128,52 +129,64 @@ const MainLayout = () => {
     >
       Continue Shopping
     </Link>
-<Link
-  to="/orders"
-  className="font-medium text-gray-700 transition hover:text-green-700"
->
-  My Orders
-</Link>
 
-<Link
-  to="/cart"
-  className="relative font-medium text-gray-700 transition hover:text-green-700"
->
-  Cart
+    <Link
+      to="/orders"
+      className="font-medium text-gray-700 transition hover:text-green-700"
+    >
+      My Orders
+    </Link>
 
-  {cartCount > 0 && (
-    <span className="absolute -right-4 -top-3 rounded-full bg-green-600 px-2 py-0.5 text-xs font-bold text-white">
-      {cartCount}
-    </span>
-  )}
-</Link>
-   
+    <Link
+      to="/notifications"
+      className="font-medium text-gray-700 transition hover:text-green-700"
+    >
+      🔔 Notifications
+    </Link>
+
+    <Link
+      to="/cart"
+      className="relative font-medium text-gray-700 transition hover:text-green-700"
+    >
+      Cart
+
+      {cartCount > 0 && (
+        <span className="absolute -right-4 -top-3 rounded-full bg-green-600 px-2 py-0.5 text-xs font-bold text-white">
+          {cartCount}
+        </span>
+      )}
+    </Link>
   </>
 )}
-
-
                 {/* Farmer */}
+              {user?.role === "farmer" && (
+  <>
+    <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700">
+      Farmer
+    </span>
 
-                {user?.role === "farmer" && (
+    <Link
+      to="/farmer/dashboard"
+      className="font-medium text-gray-700 transition hover:text-green-700"
+    >
+      Dashboard
+    </Link>
 
-                  <>
+    <Link
+      to="/farmer/orders"
+      className="font-medium text-gray-700 transition hover:text-green-700"
+    >
+      Orders
+    </Link>
 
-                    <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700">
-                      Farmer
-                    </span>
-
-
-                    <Link
-                      to="/farmer"
-                      className="font-medium text-gray-700 transition hover:text-green-700"
-                    >
-                      My Portal
-                    </Link>
-
-                  </>
-
-                )}
-
+    <Link
+      to="/notifications"
+      className="font-medium text-gray-700 transition hover:text-green-700"
+    >
+      🔔 Notifications
+    </Link>
+  </>
+)}
 
 
                 <span className="hidden text-sm text-gray-500 md:block">

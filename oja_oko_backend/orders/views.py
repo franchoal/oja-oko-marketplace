@@ -1,6 +1,7 @@
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 
+from notifications.models import Notification
 from .models import Order
 from .permissions import IsFarmer
 from .serializers import (
@@ -157,6 +158,8 @@ class FarmerOrderListView(generics.ListAPIView):
 class FarmerOrderDetailView(generics.RetrieveUpdateAPIView):
     """
     Farmers view and update their own orders.
+
+    Every successful status update notifies the buyer.
     """
 
     serializer_class = OrderSerializer
@@ -173,3 +176,25 @@ class FarmerOrderDetailView(generics.RetrieveUpdateAPIView):
         ).prefetch_related(
             "items__product"
         )
+
+    def perform_update(self, serializer):
+        """
+        Update the order and notify the buyer
+        whenever the status changes.
+        """
+
+        old_status = serializer.instance.status
+
+        order = serializer.save()
+
+        if old_status != order.status:
+
+            Notification.objects.create(
+                user=order.buyer,
+                title="Order Status Updated",
+                message=(
+                    f"Your order #{order.id} "
+                    f"is now {order.get_status_display()}."
+                ),
+                notification_type=Notification.DELIVERY_UPDATE,
+            )

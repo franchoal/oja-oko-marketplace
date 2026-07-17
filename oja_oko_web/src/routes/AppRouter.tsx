@@ -22,6 +22,7 @@ import FarmerProfilePage from "../pages/Farmer/FarmerProfilePage";
 import CartPage from "../pages/Cart/CartPage";
 import ProtectedRoute from "./ProtectedRoute";
 import FarmerRoute from "./FarmerRoute";
+import NotificationsPage from "../pages/Notifications/NotificationsPage";
 
 export const router = createBrowserRouter([
   /*
@@ -227,6 +228,11 @@ export const router = createBrowserRouter([
       {
        path: "/orders/:id",
        element: <OrderDetailsPage />,
+      },
+
+      {
+       path: "/notifications",
+       element: <NotificationsPage />,
       },
     ],
   },
