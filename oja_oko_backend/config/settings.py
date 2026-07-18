@@ -1,20 +1,39 @@
 # ==========================================================
-# SECURITY
+# IMPORTS
 # ==========================================================
+
 from pathlib import Path
 from datetime import timedelta
+import os
+
+import dj_database_url
+
+
+# ==========================================================
+# BASE DIRECTORY
+# ==========================================================
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-from datetime import timedelta
 
-SECRET_KEY = "django-insecure-change-this-later"
 
-DEBUG = True
+# ==========================================================
+# SECURITY
+# ==========================================================
 
-ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "localhost",
-]
+SECRET_KEY = os.getenv(
+    "SECRET_KEY",
+    "django-insecure-dev-key",
+)
+
+DEBUG = os.getenv(
+    "DEBUG",
+    "True",
+) == "True"
+
+ALLOWED_HOSTS = os.getenv(
+    "ALLOWED_HOSTS",
+    "127.0.0.1,localhost",
+).split(",")
 
 
 # ==========================================================
@@ -56,7 +75,10 @@ INSTALLED_APPS = [
 # ==========================================================
 
 MIDDLEWARE = [
+
     "django.middleware.security.SecurityMiddleware",
+
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 
     "corsheaders.middleware.CorsMiddleware",
 
@@ -72,8 +94,6 @@ MIDDLEWARE = [
 
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
-
 # ==========================================================
 # URLS
 # ==========================================================
@@ -88,12 +108,17 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
+
         "DIRS": [],
+
         "APP_DIRS": True,
+
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.request",
+
                 "django.contrib.auth.context_processors.auth",
+
                 "django.contrib.messages.context_processors.messages",
             ],
         },
@@ -111,17 +136,16 @@ WSGI_APPLICATION = "config.wsgi.application"
 # ==========================================================
 # DATABASE
 # ==========================================================
-
-# SQLite for development.
-# Switch to PostgreSQL before production deployment.
-
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": dj_database_url.config(
+        default=os.getenv(
+            "DATABASE_URL",
+            f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        ),
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
-
 
 # ==========================================================
 # PASSWORD VALIDATION
@@ -129,20 +153,33 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": (
+            "django.contrib.auth.password_validation."
+            "UserAttributeSimilarityValidator"
+        ),
     },
+
     {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "NAME": (
+            "django.contrib.auth.password_validation."
+            "MinimumLengthValidator"
+        ),
     },
+
     {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+        "NAME": (
+            "django.contrib.auth.password_validation."
+            "CommonPasswordValidator"
+        ),
     },
+
     {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+        "NAME": (
+            "django.contrib.auth.password_validation."
+            "NumericPasswordValidator"
+        ),
     },
 ]
-
-
 # ==========================================================
 # INTERNATIONALIZATION
 # ==========================================================
@@ -157,12 +194,22 @@ USE_TZ = True
 
 
 # ==========================================================
+# CUSTOM USER MODEL
+# ==========================================================
+
+AUTH_USER_MODEL = "accounts.User"
+
+# ==========================================================
 # STATIC FILES
 # ==========================================================
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATICFILES_STORAGE = (
+    "whitenoise.storage.CompressedManifestStaticFilesStorage"
+)
 
 
 # ==========================================================
@@ -182,30 +229,31 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # ==========================================================
-# CUSTOM USER MODEL
-# ==========================================================
-
-AUTH_USER_MODEL = "accounts.User"
-
-
-# ==========================================================
 # DJANGO REST FRAMEWORK
 # ==========================================================
 
 REST_FRAMEWORK = {
+
     "DEFAULT_AUTHENTICATION_CLASSES": [
+
         "rest_framework_simplejwt.authentication.JWTAuthentication",
+
         "rest_framework.authentication.SessionAuthentication",
+
     ],
 
     "DEFAULT_PERMISSION_CLASSES": [
+
         "rest_framework.permissions.IsAuthenticated",
+
     ],
 
     "DEFAULT_PAGINATION_CLASS": "config.pagination.MarketplacePagination",
 
     "PAGE_SIZE": 12,
+
 }
+
 
 # ==========================================================
 # SIMPLE JWT
@@ -224,6 +272,7 @@ SIMPLE_JWT = {
     "UPDATE_LAST_LOGIN": True,
 
     "AUTH_HEADER_TYPES": ("Bearer",),
+
 }
 
 
@@ -231,7 +280,46 @@ SIMPLE_JWT = {
 # CORS
 # ==========================================================
 
-# Development only.
-# Restrict origins when deploying to production.
+CORS_ALLOWED_ORIGINS = os.getenv(
+    "CORS_ALLOWED_ORIGINS",
+    "http://localhost:5173",
+).split(",")
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
+
+# ==========================================================
+# SECURITY (Production Only)
+# ==========================================================
+
+if not DEBUG:
+
+    SECURE_SSL_REDIRECT = True
+
+    SESSION_COOKIE_SECURE = True
+
+    CSRF_COOKIE_SECURE = True
+
+    SECURE_PROXY_SSL_HEADER = (
+        "HTTP_X_FORWARDED_PROTO",
+        "https",
+    )
+
+    SECURE_HSTS_SECONDS = 31536000
+
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+    SECURE_HSTS_PRELOAD = True
+
+
+# ==========================================================
+# LOGGING
+# ==========================================================
+
+LOGGING = {
+
+    "version": 1,
+
+    "disable_existing_loggers": False,
+
+}
