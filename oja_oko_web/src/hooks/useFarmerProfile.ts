@@ -2,8 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 
 import { farmerService } from "../services/farmerService";
 
-import axios from "axios";
-
 
 export const useFarmerProfile = () => {
 

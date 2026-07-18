@@ -4,8 +4,10 @@ import { useNotifications } from "../../hooks/useNotifications";
 
 const NotificationDropdown = () => {
   const {
-    data: notifications = [],
+    data,
   } = useNotifications();
+
+  const notifications = data?.results ?? [];
 
   const latestNotifications = notifications.slice(0, 5);
 
@@ -13,11 +15,9 @@ const NotificationDropdown = () => {
     <div className="absolute right-0 mt-3 w-96 overflow-hidden rounded-xl border bg-white shadow-xl">
 
       <div className="border-b px-5 py-4">
-
         <h3 className="text-lg font-bold">
           Notifications
         </h3>
-
       </div>
 
       {latestNotifications.length === 0 ? (

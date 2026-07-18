@@ -4,9 +4,11 @@ import { useFarmerProducts } from "../../hooks/useFarmerProducts";
 
 const ProductTable = () => {
   const {
-    data: products = [],
+    data,
     isLoading,
   } = useFarmerProducts();
+
+  const products = data?.results ?? [];
 
   if (isLoading) {
     return (

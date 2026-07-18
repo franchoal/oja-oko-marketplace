@@ -6,10 +6,12 @@ import { useOrders } from "../../hooks/useOrders";
 
 const OrdersPage = () => {
   const {
-    data: orders,
+    data,
     isLoading,
     isError,
   } = useOrders();
+
+  const orders = data?.results ?? [];
 
   if (isLoading) {
     return (
@@ -49,7 +51,7 @@ const OrdersPage = () => {
         </p>
       </div>
 
-      {!orders || orders.length === 0 ? (
+      {orders.length === 0 ? (
         <Card className="p-8 text-center">
           <h2 className="text-2xl font-semibold">
             No orders yet
