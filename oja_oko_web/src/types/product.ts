@@ -21,6 +21,10 @@ export interface Product {
 
   is_available: boolean;
 
+  average_rating: number;
+
+  review_count: number;
+
   created_at: string;
 
   updated_at: string;
@@ -31,6 +35,7 @@ export interface Product {
  * the same structure.
  */
 export type ProductDetail = Product;
+
 
 export interface CreateProductData {
   category: number;
@@ -46,4 +51,8 @@ export interface CreateProductData {
   unit: string;
 
   image?: File | null;
+
+  average_rating: number;
+
+review_count: number;
 }

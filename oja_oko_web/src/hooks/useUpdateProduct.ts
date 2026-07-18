@@ -18,6 +18,7 @@ export const useUpdateProduct = (
   const queryClient = useQueryClient();
 
   return useMutation({
+
     mutationFn: ({
       id,
       data,
@@ -27,31 +28,41 @@ export const useUpdateProduct = (
         data
       ),
 
-    onSuccess: () => {
+    onSuccess: async () => {
+
       toast.success(
         "Product updated successfully."
       );
 
-      queryClient.invalidateQueries({
-        queryKey: ["farmer-products"],
-      });
+      await Promise.all([
 
-      queryClient.invalidateQueries({
-        queryKey: ["products"],
-      });
+        queryClient.invalidateQueries({
+          queryKey: ["farmer-products"],
+        }),
 
-      if (onSuccess) {
-        onSuccess();
-      }
+        queryClient.invalidateQueries({
+          queryKey: ["products"],
+        }),
+
+      ]);
+
+      onSuccess?.();
+
     },
 
     onError: (error) => {
+
       if (axios.isAxiosError(error)) {
+
         console.error(error.response?.data);
 
         const message =
-          error.response?.data?.detail ||
-          "Unable to update product.";
+          error.response?.data?.detail ??
+          (typeof error.response?.data === "object"
+            ? Object.values(error.response.data)
+                .flat()
+                .join("\n")
+            : "Unable to update product.");
 
         toast.error(message);
 
@@ -61,6 +72,8 @@ export const useUpdateProduct = (
       toast.error(
         "Unable to update product."
       );
+
     },
+
   });
 };

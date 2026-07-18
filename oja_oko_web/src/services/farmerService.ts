@@ -29,6 +29,17 @@ export interface FarmerProduct {
   is_available: boolean;
 }
 
+/* ==============================
+   Paginated Farmer Products
+============================== */
+
+export interface PaginatedFarmerProducts {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: FarmerProduct[];
+}
+
 export interface CreateFarmerProductData {
   category: number;
   name: string;
@@ -61,14 +72,17 @@ export const farmerService = {
    */
 
   getProfile: async (): Promise<FarmerProfile> => {
-    const response = await api.get("/farmers/profile/");
+    const response = await api.get<FarmerProfile>(
+      "/farmers/profile/"
+    );
+
     return response.data;
   },
 
   createProfile: async (
     data: Omit<FarmerProfile, "id" | "is_verified">
-  ) => {
-    const response = await api.post(
+  ): Promise<FarmerProfile> => {
+    const response = await api.post<FarmerProfile>(
       "/farmers/profile/create/",
       data
     );
@@ -78,8 +92,8 @@ export const farmerService = {
 
   updateProfile: async (
     data: Omit<FarmerProfile, "id" | "is_verified">
-  ) => {
-    const response = await api.put(
+  ): Promise<FarmerProfile> => {
+    const response = await api.put<FarmerProfile>(
       "/farmers/profile/",
       data
     );
@@ -93,10 +107,11 @@ export const farmerService = {
    * ==============================
    */
 
-  getMyProducts: async (): Promise<FarmerProduct[]> => {
-    const response = await api.get(
-      "/farmers/products/"
-    );
+  getMyProducts: async (): Promise<PaginatedFarmerProducts> => {
+    const response =
+      await api.get<PaginatedFarmerProducts>(
+        "/farmers/products/"
+      );
 
     return response.data;
   },
@@ -104,16 +119,17 @@ export const farmerService = {
   getProduct: async (
     id: number
   ): Promise<FarmerProduct> => {
-    const response = await api.get(
-      `/farmers/products/${id}/`
-    );
+    const response =
+      await api.get<FarmerProduct>(
+        `/farmers/products/${id}/`
+      );
 
     return response.data;
   },
 
   createProduct: async (
     data: CreateFarmerProductData
-  ) => {
+  ): Promise<FarmerProduct> => {
     const formData = new FormData();
 
     formData.append(
@@ -154,10 +170,11 @@ export const farmerService = {
       );
     }
 
-    const response = await api.post(
-      "/farmers/products/",
-      formData
-    );
+    const response =
+      await api.post<FarmerProduct>(
+        "/farmers/products/",
+        formData
+      );
 
     return response.data;
   },
@@ -165,7 +182,7 @@ export const farmerService = {
   updateProduct: async (
     id: number,
     data: UpdateFarmerProductData
-  ) => {
+  ): Promise<FarmerProduct> => {
     const formData = new FormData();
 
     if (data.category !== undefined) {
@@ -218,17 +235,18 @@ export const farmerService = {
       );
     }
 
-    const response = await api.patch(
-      `/farmers/products/${id}/`,
-      formData
-    );
+    const response =
+      await api.patch<FarmerProduct>(
+        `/farmers/products/${id}/`,
+        formData
+      );
 
     return response.data;
   },
 
   deleteProduct: async (
     id: number
-  ) => {
+  ): Promise<void> => {
     await api.delete(
       `/farmers/products/${id}/`
     );

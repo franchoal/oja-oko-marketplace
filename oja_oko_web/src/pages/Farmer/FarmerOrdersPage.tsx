@@ -37,10 +37,12 @@ const getStatusBadge = (status: string) => {
 
 const FarmerOrdersPage = () => {
   const {
-    data: orders,
+    data,
     isLoading,
     isError,
   } = useFarmerOrders();
+
+  const orders = data?.results ?? [];
 
   if (isLoading) {
     return (
@@ -66,6 +68,7 @@ const FarmerOrdersPage = () => {
     <main className="mx-auto max-w-6xl px-6 py-10">
 
       <div className="mb-8">
+
         <h1 className="text-4xl font-bold">
           Customer Orders
         </h1>
@@ -73,9 +76,11 @@ const FarmerOrdersPage = () => {
         <p className="mt-2 text-gray-600">
           Orders placed for your farm products.
         </p>
+
       </div>
 
-      {!orders || orders.length === 0 ? (
+      {orders.length === 0 ? (
+
         <Card className="p-8 text-center">
 
           <h2 className="text-2xl font-semibold">
@@ -87,10 +92,13 @@ const FarmerOrdersPage = () => {
           </p>
 
         </Card>
+
       ) : (
+
         <div className="space-y-5">
 
           {orders.map((order) => (
+
             <Card
               key={order.id}
               className="flex items-center justify-between"
@@ -127,7 +135,10 @@ const FarmerOrdersPage = () => {
                 >
                   {order.status
                     .replaceAll("_", " ")
-                    .replace(/\b\w/g, c => c.toUpperCase())}
+                    .replace(
+                    /\b\w/g,
+                    (c: string) => c.toUpperCase()
+                 )}
                 </span>
 
                 <div className="mt-3">
@@ -144,10 +155,13 @@ const FarmerOrdersPage = () => {
               </div>
 
             </Card>
+
           ))}
 
         </div>
+
       )}
+
     </main>
   );
 };

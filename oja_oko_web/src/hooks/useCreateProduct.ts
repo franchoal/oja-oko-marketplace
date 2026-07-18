@@ -7,54 +7,44 @@ import {
   type CreateFarmerProductData,
 } from "../services/farmerService";
 
-
 export const useCreateProduct = (
   onSuccess?: () => void
 ) => {
-
   const queryClient = useQueryClient();
-
 
   return useMutation({
 
     mutationFn: (
       data: CreateFarmerProductData
-    ) =>
-      farmerService.createProduct(data),
+    ) => farmerService.createProduct(data),
 
-
-    onSuccess: () => {
+    onSuccess: async () => {
 
       toast.success(
         "Product created successfully!"
       );
 
+      await Promise.all([
 
-      // Refresh public marketplace products
-      queryClient.invalidateQueries({
-        queryKey: ["products"],
-      });
+        queryClient.invalidateQueries({
+          queryKey: ["products"],
+        }),
 
+        queryClient.invalidateQueries({
+          queryKey: ["farmer-products"],
+        }),
 
-      // Refresh farmer dashboard products
-      queryClient.invalidateQueries({
-        queryKey: ["farmer-products"],
-      });
+      ]);
 
-
-      if (onSuccess) {
-        onSuccess();
-      }
+      onSuccess?.();
 
     },
-
 
     onError: (error) => {
 
       if (axios.isAxiosError(error)) {
 
         console.error(error.response?.data);
-
 
         const message =
           typeof error.response?.data === "object"
@@ -63,19 +53,16 @@ export const useCreateProduct = (
                 .join("\n")
             : "Failed to create product.";
 
-
         toast.error(message);
 
-      } else {
-
-        toast.error(
-          "Failed to create product."
-        );
-
+        return;
       }
+
+      toast.error(
+        "Failed to create product."
+      );
 
     },
 
   });
-
 };

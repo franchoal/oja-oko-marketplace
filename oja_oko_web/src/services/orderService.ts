@@ -25,6 +25,13 @@ export interface Order {
   updated_at: string;
 }
 
+export interface PaginatedOrders {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: Order[];
+}
+
 export interface UpdateOrderStatusData {
   status:
     | "accepted"
@@ -52,10 +59,11 @@ export const orderService = {
     return response.data;
   },
 
-  getOrders: async (): Promise<Order[]> => {
-    const response = await api.get<Order[]>(
-      "/orders/"
-    );
+  getOrders: async (): Promise<PaginatedOrders> => {
+    const response =
+      await api.get<PaginatedOrders>(
+        "/orders/"
+      );
 
     return response.data;
   },
@@ -63,9 +71,10 @@ export const orderService = {
   getOrder: async (
     id: number
   ): Promise<Order> => {
-    const response = await api.get<Order>(
-      `/orders/${id}/`
-    );
+    const response =
+      await api.get<Order>(
+        `/orders/${id}/`
+      );
 
     return response.data;
   },
@@ -76,10 +85,11 @@ export const orderService = {
   ==========================================
   */
 
-  getFarmerOrders: async (): Promise<Order[]> => {
-    const response = await api.get<Order[]>(
-      "/orders/farmer/"
-    );
+  getFarmerOrders: async (): Promise<PaginatedOrders> => {
+    const response =
+      await api.get<PaginatedOrders>(
+        "/orders/farmer/"
+      );
 
     return response.data;
   },
@@ -87,9 +97,10 @@ export const orderService = {
   getFarmerOrder: async (
     id: number
   ): Promise<Order> => {
-    const response = await api.get<Order>(
-      `/orders/farmer/${id}/`
-    );
+    const response =
+      await api.get<Order>(
+        `/orders/farmer/${id}/`
+      );
 
     return response.data;
   },
@@ -98,10 +109,11 @@ export const orderService = {
     id: number,
     data: UpdateOrderStatusData
   ): Promise<Order> => {
-    const response = await api.patch<Order>(
-      `/orders/farmer/${id}/`,
-      data
-    );
+    const response =
+      await api.patch<Order>(
+        `/orders/farmer/${id}/`,
+        data
+      );
 
     return response.data;
   },

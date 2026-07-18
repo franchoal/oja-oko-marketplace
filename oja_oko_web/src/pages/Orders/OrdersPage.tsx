@@ -4,15 +4,16 @@ import { Card } from "../../components/ui";
 
 import { useOrders } from "../../hooks/useOrders";
 
-
 const OrdersPage = () => {
 
   const {
-    data: orders,
+    data,
     isLoading,
     isError,
   } = useOrders();
 
+  const orders =
+    data?.results ?? [];
 
   if (isLoading) {
     return (
@@ -23,7 +24,6 @@ const OrdersPage = () => {
       </main>
     );
   }
-
 
   if (isError) {
     return (
@@ -41,8 +41,8 @@ const OrdersPage = () => {
     );
   }
 
-
   return (
+
     <main className="mx-auto max-w-6xl px-6 py-10">
 
       <div className="mb-8">
@@ -57,86 +57,81 @@ const OrdersPage = () => {
 
       </div>
 
+      {orders.length === 0 ? (
 
-      {
-        !orders || orders.length === 0 ? (
+        <Card className="p-8 text-center">
 
-          <Card className="p-8 text-center">
-
-            <h2 className="text-2xl font-semibold">
-              No orders yet
-            </h2>
-
-
-            <Link
-              to="/products"
-              className="mt-5 inline-block rounded-lg bg-green-600 px-6 py-3 text-white"
-            >
-              Start Shopping
-            </Link>
-
-          </Card>
-
-        ) : (
-
-          <div className="space-y-5">
-
-            {
-  orders.map((order) => (
-
-    <Link
-      key={order.id}
-      to={`/orders/${order.id}`}
-      className="block"
-    >
-
-      <Card className="flex items-center justify-between transition hover:border-green-500 hover:shadow-lg">
-
-        <div>
-
-          <h2 className="font-semibold">
-            Order #{order.id}
+          <h2 className="text-2xl font-semibold">
+            No orders yet
           </h2>
 
-          <p className="text-gray-500">
-            Farmer: {order.farmer}
-          </p>
+          <Link
+            to="/products"
+            className="mt-5 inline-block rounded-lg bg-green-600 px-6 py-3 text-white"
+          >
+            Start Shopping
+          </Link>
 
-          <p className="text-gray-500">
-            {new Date(
-              order.created_at
-            ).toLocaleDateString()}
-          </p>
+        </Card>
+
+      ) : (
+
+        <div className="space-y-5">
+
+          {orders.map((order) => (
+
+            <Link
+              key={order.id}
+              to={`/orders/${order.id}`}
+              className="block"
+            >
+
+              <Card className="flex items-center justify-between transition hover:border-green-500 hover:shadow-lg">
+
+                <div>
+
+                  <h2 className="font-semibold">
+                    Order #{order.id}
+                  </h2>
+
+                  <p className="text-gray-500">
+                    Farmer: {order.farmer}
+                  </p>
+
+                  <p className="text-gray-500">
+                    {new Date(
+                      order.created_at
+                    ).toLocaleDateString()}
+                  </p>
+
+                </div>
+
+                <div className="text-right">
+
+                  <p className="text-xl font-bold text-green-700">
+                    ₦{Number(order.total).toLocaleString()}
+                  </p>
+
+                  <span className="rounded-full bg-yellow-100 px-3 py-1 text-sm text-yellow-700">
+                    {order.status}
+                  </span>
+
+                </div>
+
+              </Card>
+
+            </Link>
+
+          ))}
 
         </div>
 
-        <div className="text-right">
-
-          <p className="text-xl font-bold text-green-700">
-            ₦{Number(order.total).toLocaleString()}
-          </p>
-
-          <span className="rounded-full bg-yellow-100 px-3 py-1 text-sm text-yellow-700">
-            {order.status}
-          </span>
-
-        </div>
-
-      </Card>
-
-    </Link>
-
-  ))
-}
-          </div>
-
-        )
-      }
+      )}
 
     </main>
+
   );
 
 };
-
 
 export default OrdersPage;

@@ -2,14 +2,32 @@ import { useQuery } from "@tanstack/react-query";
 
 import { notificationService } from "../services/notificationService";
 
-export const useNotifications = () => {
+interface UseNotificationsOptions {
+  enabled?: boolean;
+}
+
+export const useNotifications = (
+  options?: UseNotificationsOptions
+) => {
+
   return useQuery({
-    queryKey: ["notifications"],
 
-    queryFn: notificationService.getNotifications,
+    queryKey: [
+      "notifications",
+    ],
 
-    staleTime: 1000 * 60,
+    queryFn:
+      notificationService.getNotifications,
 
-    refetchOnWindowFocus: true,
+    staleTime:
+      1000 * 60,
+
+    refetchOnWindowFocus:
+      true,
+
+    enabled:
+      options?.enabled ?? true,
+
   });
+
 };

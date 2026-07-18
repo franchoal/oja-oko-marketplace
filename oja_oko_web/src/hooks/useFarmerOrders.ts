@@ -1,12 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 
-import {
-  orderService,
-  type Order,
-} from "../services/orderService";
+import { orderService } from "../services/orderService";
 
 export const useFarmerOrders = () => {
-  return useQuery<Order[]>({
+  return useQuery({
     queryKey: ["farmer-orders"],
 
     queryFn: orderService.getFarmerOrders,

@@ -1,3 +1,5 @@
+from django_filters.rest_framework import DjangoFilterBackend
+
 from rest_framework import filters, generics, permissions
 
 from .models import Category, Product
@@ -22,11 +24,20 @@ class CategoryListView(generics.ListAPIView):
     permission_classes = [
         permissions.AllowAny,
     ]
+    pagination_class = None
 
 
 class ProductListView(generics.ListAPIView):
     """
-    Public product listing.
+    Public marketplace product listing.
+
+    Supports:
+    - Search
+    - Category filter
+    - Farmer filter
+    - Availability filter
+    - Price range
+    - Ordering
     """
 
     queryset = (
@@ -34,8 +45,9 @@ class ProductListView(generics.ListAPIView):
             "farmer",
             "category",
         )
-        .filter(is_available=True,
-                farmer__is_verified=True,
+        .filter(
+            is_available=True,
+            farmer__is_verified=True,
         )
         .order_by("-created_at")
     )
@@ -47,9 +59,20 @@ class ProductListView(generics.ListAPIView):
     ]
 
     filter_backends = [
+        DjangoFilterBackend,
         filters.SearchFilter,
         filters.OrderingFilter,
     ]
+
+    filterset_fields = {
+        "category": ["exact"],
+        "farmer": ["exact"],
+        "is_available": ["exact"],
+        "price": [
+            "gte",
+            "lte",
+        ],
+    }
 
     search_fields = [
         "name",
@@ -63,6 +86,10 @@ class ProductListView(generics.ListAPIView):
         "price",
         "created_at",
         "name",
+    ]
+
+    ordering = [
+        "-created_at",
     ]
 
 
@@ -87,8 +114,8 @@ class ProductCreateView(generics.CreateAPIView):
     """
     Farmers create products.
 
-    Note:
-    Farmer ownership is handled through FarmerProfile.
+    Farmer ownership is automatically assigned
+    from the authenticated farmer profile.
     """
 
     serializer_class = ProductCreateUpdateSerializer
@@ -109,7 +136,10 @@ class ProductUpdateView(generics.UpdateAPIView):
     Farmers update their own products.
     """
 
-    queryset = Product.objects.all()
+    queryset = Product.objects.select_related(
+        "farmer",
+        "category",
+    )
 
     serializer_class = ProductCreateUpdateSerializer
 
