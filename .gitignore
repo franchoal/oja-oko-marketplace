@@ -1,0 +1,33 @@
+# Environment
+.env
+.env.*
+
+# Database
+db.sqlite3
+
+# Media
+media/
+
+# Static
+staticfiles/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
