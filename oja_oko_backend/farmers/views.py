@@ -1,4 +1,5 @@
 from rest_framework import generics, permissions
+import logging
 from rest_framework.exceptions import (
     NotFound,
     PermissionDenied,
@@ -12,6 +13,7 @@ from .serializers import (
     FarmerProfileSerializer,
     FarmerProductSerializer,
 )
+logger = logging.getLogger(__name__)
 
 
 class FarmerProfileView(generics.RetrieveUpdateAPIView):
@@ -104,21 +106,24 @@ class FarmerProductListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
 
-        try:
-            farmer_profile = FarmerProfile.objects.get(
-                user=self.request.user
-            )
-
-        except FarmerProfile.DoesNotExist:
-            raise PermissionDenied(
-                "Please create your farmer profile before adding products."
-            )
+     try:
+        farmer_profile = FarmerProfile.objects.get(
+            user=self.request.user
+        )
 
         serializer.save(
             farmer=farmer_profile,
-            is_available=True
-            
+            is_available=True,
         )
+
+     except FarmerProfile.DoesNotExist:
+        raise PermissionDenied(
+            "Please create your farmer profile before adding products."
+        )
+
+     except Exception:
+        logger.exception("PRODUCT UPLOAD FAILED")
+        raise
 
 
 class FarmerProductDetailView(
