@@ -32,7 +32,7 @@ DEBUG = os.getenv(
 
 ALLOWED_HOSTS = os.getenv(
     "ALLOWED_HOSTS",
-    "127.0.0.1,localhost,192.168.42.193",
+    "127.0.0.1,localhost,192.168.42.193,oja-oko-marketplace.onrender.com",
 ).split(",")
 
 # ==========================================================
@@ -278,8 +278,8 @@ SIMPLE_JWT = {
 # ==========================================================
 # CORS
 # ==========================================================
-
 CORS_ALLOWED_ORIGINS = [
+    # Local development
     "http://localhost:5173",
 
     # Expo Web
@@ -287,12 +287,16 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8081",
     "http://localhost:19006",
     "http://127.0.0.1:19006",
-
-    # Your PC Expo access
     "http://192.168.42.193:8081",
-]
 
+    # Production Frontend
+    "https://oja-oko-marketplace.vercel.app",
+]
 CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://oja-oko-marketplace.vercel.app",
+]
 
 # ==========================================================
 # SECURITY (Production Only)
