@@ -200,7 +200,6 @@ USE_TZ = True
 # ==========================================================
 
 AUTH_USER_MODEL = "accounts.User"
-
 # ==========================================================
 # STATIC FILES
 # ==========================================================
@@ -209,16 +208,9 @@ STATIC_URL = "/static/"
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-STATICFILES_STORAGE = (
-    "whitenoise.storage.CompressedManifestStaticFilesStorage"
-)
-
 
 # ==========================================================
-# MEDIA FILES
-# ==========================================================
-# ==========================================================
-# MEDIA FILES (Cloudinary)
+# CLOUDINARY
 # ==========================================================
 
 CLOUDINARY_STORAGE = {
@@ -227,9 +219,19 @@ CLOUDINARY_STORAGE = {
     "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
 }
 
-DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
-MEDIA_URL = "/media/"
+# ==========================================================
+# DJANGO 5 STORAGE BACKENDS
+# ==========================================================
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 
 # ==========================================================
