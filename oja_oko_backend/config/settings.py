@@ -32,9 +32,8 @@ DEBUG = os.getenv(
 
 ALLOWED_HOSTS = os.getenv(
     "ALLOWED_HOSTS",
-    "127.0.0.1,localhost",
+    "127.0.0.1,localhost,192.168.42.193",
 ).split(",")
-
 
 # ==========================================================
 # APPLICATIONS
@@ -280,13 +279,20 @@ SIMPLE_JWT = {
 # CORS
 # ==========================================================
 
-CORS_ALLOWED_ORIGINS = os.getenv(
-    "CORS_ALLOWED_ORIGINS",
+CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-).split(",")
+
+    # Expo Web
+    "http://localhost:8081",
+    "http://127.0.0.1:8081",
+    "http://localhost:19006",
+    "http://127.0.0.1:19006",
+
+    # Your PC Expo access
+    "http://192.168.42.193:8081",
+]
 
 CORS_ALLOW_CREDENTIALS = True
-
 
 # ==========================================================
 # SECURITY (Production Only)
