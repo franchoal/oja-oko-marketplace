@@ -50,8 +50,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     # Third-party Apps
-    "cloudinary",
-    "cloudinary_storage",
 
     "rest_framework",
     "rest_framework_simplejwt",
@@ -210,29 +208,27 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 # ==========================================================
-# CLOUDINARY
+# ==========================================================
+# STATIC FILES
 # ==========================================================
 
-CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME"),
-    "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
-    "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
-}
+STATIC_URL = "/static/"
 
-
-# ==========================================================
-# DJANGO 5 STORAGE BACKENDS
-# ==========================================================
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 STORAGES = {
-    "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
 
+# ==========================================================
+# MEDIA FILES
+# ==========================================================
+
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = BASE_DIR / "media"
 
 # ==========================================================
 # DEFAULT PRIMARY KEY
