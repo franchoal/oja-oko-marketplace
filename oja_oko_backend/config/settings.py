@@ -215,13 +215,18 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATIC_URL = "/static/"
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
+# ==========================================================
+# STORAGE
+# ==========================================================
 
 STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
-
 # ==========================================================
 # MEDIA FILES
 # ==========================================================
