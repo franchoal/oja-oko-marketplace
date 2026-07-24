@@ -6,8 +6,10 @@ interface AuthLayoutProps {
 
 const AuthLayout = ({ children }: AuthLayoutProps) => {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-green-50 to-green-100 px-4">
-      {children}
+    <main className="min-h-screen bg-gradient-to-br from-[#F8FCF5] via-white to-[#EEF8E9]">
+      <div className="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center px-6 py-10">
+        {children}
+      </div>
     </main>
   );
 };

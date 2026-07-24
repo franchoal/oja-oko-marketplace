@@ -1,150 +1,634 @@
 import { Link } from "react-router-dom";
 
+import {
+  ArrowRight,
+  Leaf,
+  ShoppingBasket,
+  ShieldCheck,
+  Users,
+  TrendingUp,
+  CheckCircle2,
+  Search,
+} from "lucide-react";
+
+import {
+  heroFarm,
+  vegetables,
+  fruits,
+  grains,
+  livestock,
+} from "../../assets/images";
+
+const SectionTitle = ({
+  title,
+  subtitle,
+}: {
+  title: string;
+  subtitle: string;
+}) => (
+  <div className="mx-auto mb-12 max-w-2xl text-center">
+    <h2 className="text-4xl font-bold text-gray-900">
+      {title}
+    </h2>
+
+    <p className="mt-4 text-lg text-gray-600">
+      {subtitle}
+    </p>
+  </div>
+);
+
 const HomePage = () => {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-green-50 to-white">
-      <section className="mx-auto flex max-w-7xl flex-col items-center px-6 py-20 text-center">
-        {/* Hero */}
+    <main className="bg-white">
 
-        <span className="rounded-full bg-green-100 px-5 py-2 text-sm font-semibold text-green-700">
-          Welcome to Oja-Oko Marketplace
-        </span>
+      {/* ========================================= */}
+      {/* HERO */}
+      {/* ========================================= */}
 
-        <h1 className="mt-6 text-5xl font-bold text-gray-900">
-          Connecting
-          <span className="text-green-700"> Farmers </span>
-          and
-          <span className="text-green-700"> Buyers </span>
-          Across Nigeria
-        </h1>
+      <section className="relative overflow-hidden">
 
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-gray-600">
-          Buy fresh agricultural produce directly from trusted farmers or grow
-          your farming business by reaching thousands of buyers through the
-          Oja-Oko Marketplace.
-        </p>
+        {/* Hero Background Image */}
 
-        {/* User Portals */}
+        <img
+          src={heroFarm}
+          alt="Nigerian Farmers"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
 
-        <div className="mt-16 grid w-full gap-8 lg:grid-cols-2">
-          {/* Buyer Portal */}
+        {/* Dark Overlay */}
 
-          <div className="rounded-3xl bg-white p-10 shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
-            <div className="mb-6 text-6xl">
-              🛒
-            </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-green-950/90 via-green-900/75 to-green-700/40" />
 
-            <h2 className="text-3xl font-bold text-green-700">
-              Buyer Marketplace
-            </h2>
+        {/* Decorative Blur */}
 
-            <p className="mt-4 leading-7 text-gray-600">
-              Browse fresh farm products, compare prices, place orders and enjoy
-              a seamless shopping experience directly from verified farmers.
-            </p>
+        <div className="absolute -left-40 top-20 h-96 w-96 rounded-full bg-yellow-300/20 blur-3xl" />
+        <div className="absolute right-0 bottom-0 h-80 w-80 rounded-full bg-green-400/20 blur-3xl" />
 
-            <div className="mt-10 flex flex-col gap-4">
-              <Link
-                to="/products"
-                className="rounded-xl bg-green-600 px-6 py-4 font-semibold text-white transition hover:bg-green-700"
-              >
-                Browse Products
-              </Link>
+        <div className="relative mx-auto flex min-h-[760px] max-w-7xl items-center px-6 py-20">
 
-              <Link
-                to="/login/buyer"
-                className="rounded-xl border border-green-600 px-6 py-4 font-semibold text-green-700 transition hover:bg-green-50"
-              >
-                Buyer Login
-              </Link>
+          <div className="grid w-full items-center gap-20 lg:grid-cols-2">
 
-              <Link
-                to="/register/buyer"
-                className="font-medium text-green-700 hover:underline"
-              >
-                Create Buyer Account
-              </Link>
-            </div>
-          </div>
+            {/* LEFT */}
 
-          {/* Farmer Portal */}
+            <div>
 
-          <div className="rounded-3xl bg-white p-10 shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
-            <div className="mb-6 text-6xl">
-              🌱
-            </div>
+              <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm font-semibold text-white backdrop-blur">
+                🇳🇬 Nigeria's Trusted Agricultural Marketplace
+              </span>
 
-            <h2 className="text-3xl font-bold text-green-700">
-              Farmer Portal
-            </h2>
+              <h1 className="mt-8 text-5xl font-black leading-tight text-white lg:text-7xl">
 
-            <p className="mt-4 leading-7 text-gray-600">
-              Join thousands of farmers using Oja-Oko to sell produce, manage
-              products, receive customer orders and grow their agricultural
-              businesses.
-            </p>
+                Connecting
 
-            <div className="mt-10 flex flex-col gap-4">
-              <Link
-                to="/farmer"
-                className="rounded-xl bg-green-600 px-6 py-4 font-semibold text-white transition hover:bg-green-700"
-              >
-                Go to Farmer Portal
-              </Link>
+                <span className="block text-yellow-300">
+                  Farmers
+                </span>
 
-              <p className="text-sm text-gray-500">
-                Existing farmers can sign in, while new farmers can create an
-                account from the portal.
+                With Buyers
+
+              </h1>
+
+              <p className="mt-8 max-w-xl text-lg leading-8 text-green-50">
+
+                Buy fresh farm produce directly from verified Nigerian farmers
+                while helping local agriculture thrive through digital commerce.
+
               </p>
+
+              <div className="mt-10 flex flex-wrap gap-5">
+
+                <Link
+                  to="/products"
+                  className="inline-flex items-center gap-2 rounded-xl bg-white px-8 py-4 font-semibold text-green-700 shadow-xl transition hover:-translate-y-1"
+                >
+                  Browse Marketplace
+
+                  <ArrowRight size={18} />
+                </Link>
+
+                <Link
+                  to="/farmer"
+                  className="rounded-xl border border-white px-8 py-4 font-semibold text-white transition hover:bg-white hover:text-green-700"
+                >
+                  Sell Your Produce
+                </Link>
+
+              </div>
+
+              {/* Stats */}
+
+              <div className="mt-16 grid grid-cols-3 gap-8">
+
+                <div>
+                  <h3 className="text-4xl font-black text-white">
+                    100+
+                  </h3>
+
+                  <p className="mt-2 text-green-100">
+                    Verified Farmers
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-4xl font-black text-white">
+                    1,000+
+                  </h3>
+
+                  <p className="mt-2 text-green-100">
+                    Products
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-4xl font-black text-white">
+                    36
+                  </h3>
+
+                  <p className="mt-2 text-green-100">
+                    States
+                  </p>
+                </div>
+
+              </div>
+
             </div>
+
+            {/* RIGHT */}
+
+            <div className="hidden lg:block">
+
+              <div className="rounded-3xl bg-white/95 p-10 shadow-2xl backdrop-blur">
+
+                <ShoppingBasket
+                  size={72}
+                  className="text-green-600"
+                />
+
+                <h2 className="mt-6 text-3xl font-bold text-gray-900">
+                  Fresh Produce Delivered
+                </h2>
+
+                <p className="mt-4 leading-8 text-gray-600">
+
+                  Shop vegetables, grains, fruits, livestock products and more
+                  directly from verified farmers across Nigeria.
+
+                </p>
+
+                <div className="mt-8 space-y-4">
+
+                  {[
+                    "Verified Farmers",
+                    "Fresh Harvests",
+                    "Secure Transactions",
+                    "Nationwide Marketplace",
+                  ].map((item) => (
+
+                    <div
+                      key={item}
+                      className="flex items-center gap-3"
+                    >
+
+                      <CheckCircle2
+                        size={20}
+                        className="text-green-600"
+                      />
+
+                      <span className="text-gray-700">
+                        {item}
+                      </span>
+
+                    </div>
+
+                  ))}
+
+                </div>
+
+              </div>
+
+            </div>
+
           </div>
+
         </div>
 
-        {/* Features */}
-
-        <section className="mt-24 grid w-full gap-8 md:grid-cols-3">
-          <div className="rounded-2xl bg-white p-8 shadow">
-            <div className="mb-4 text-4xl">🌾</div>
-
-            <h3 className="text-xl font-semibold text-green-700">
-              Fresh Produce
-            </h3>
-
-            <p className="mt-3 text-gray-600">
-              Purchase quality agricultural products directly from verified
-              farmers across Nigeria.
-            </p>
-          </div>
-
-          <div className="rounded-2xl bg-white p-8 shadow">
-            <div className="mb-4 text-4xl">🚜</div>
-
-            <h3 className="text-xl font-semibold text-green-700">
-              Farmer Management
-            </h3>
-
-            <p className="mt-3 text-gray-600">
-              Manage your farm profile, products, customer orders and future
-              business analytics from one platform.
-            </p>
-          </div>
-
-          <div className="rounded-2xl bg-white p-8 shadow">
-            <div className="mb-4 text-4xl">🔒</div>
-
-            <h3 className="text-xl font-semibold text-green-700">
-              Trusted Marketplace
-            </h3>
-
-            <p className="mt-3 text-gray-600">
-              Secure transactions, verified farmers and a marketplace built for
-              Nigeria's agricultural ecosystem.
-            </p>
-          </div>
-        </section>
       </section>
+            {/* ========================= */}
+      {/* CATEGORIES */}
+      {/* ========================= */}
+
+      <section className="bg-gray-50 py-24">
+
+        <div className="mx-auto max-w-7xl px-6">
+
+          <SectionTitle
+            title="Browse Popular Categories"
+            subtitle="Fresh agricultural products sourced directly from trusted farmers across Nigeria."
+          />
+
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+
+            {[
+              {
+                image: vegetables,
+                title: "Vegetables",
+              },
+              {
+                image: fruits,
+                title: "Fruits",
+              },
+              {
+                image: grains,
+                title: "Grains",
+              },
+              {
+                image: livestock,
+                title: "Livestock",
+              },
+            ].map((category) => (
+
+              <Link
+                key={category.title}
+                to="/products"
+                className="group overflow-hidden rounded-3xl bg-white shadow-md transition duration-300 hover:-translate-y-2 hover:shadow-2xl"
+              >
+
+                <div className="h-64 overflow-hidden">
+
+                  <img
+                    src={category.image}
+                    alt={category.title}
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+                  />
+
+                </div>
+
+                <div className="p-6">
+
+                  <h3 className="text-2xl font-bold text-gray-900">
+                    {category.title}
+                  </h3>
+
+                  <p className="mt-3 text-gray-600">
+                    Discover quality {category.title.toLowerCase()} from verified
+                    farmers.
+                  </p>
+
+                </div>
+
+              </Link>
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* ========================= */}
+      {/* HOW IT WORKS */}
+      {/* ========================= */}
+
+      <section className="py-24">
+
+        <div className="mx-auto max-w-7xl px-6">
+
+          <SectionTitle
+            title="How Oja-Oko Works"
+            subtitle="A simple marketplace connecting Nigerian farmers with buyers."
+          />
+
+          <div className="grid gap-10 md:grid-cols-3">
+
+            {[
+              {
+                icon: Search,
+                title: "Browse Products",
+                text: "Explore hundreds of fresh agricultural products from verified farmers.",
+              },
+              {
+                icon: Users,
+                title: "Connect With Farmers",
+                text: "Purchase directly from trusted farmers with transparent pricing.",
+              },
+              {
+                icon: ShoppingBasket,
+                title: "Order Easily",
+                text: "Place orders quickly and manage everything from your account.",
+              },
+            ].map((step, index) => {
+
+              const Icon = step.icon;
+
+              return (
+
+                <div
+                  key={step.title}
+                  className="rounded-3xl bg-white p-10 text-center shadow-md transition hover:-translate-y-2 hover:shadow-xl"
+                >
+
+                  <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
+
+                    <Icon
+                      size={38}
+                      className="text-green-600"
+                    />
+
+                  </div>
+
+                  <div className="mt-6">
+
+                    <span className="text-sm font-semibold text-green-600">
+                      STEP {index + 1}
+                    </span>
+
+                    <h3 className="mt-2 text-2xl font-bold">
+                      {step.title}
+                    </h3>
+
+                    <p className="mt-4 leading-7 text-gray-600">
+                      {step.text}
+                    </p>
+
+                  </div>
+
+                </div>
+
+              );
+
+            })}
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* ========================= */}
+      {/* WHY CHOOSE US */}
+      {/* ========================= */}
+
+      <section className="bg-gray-50 py-24">
+
+        <div className="mx-auto max-w-7xl px-6">
+
+          <SectionTitle
+            title="Why Nigerians Choose Oja-Oko"
+            subtitle="Built specifically for the Nigerian agricultural ecosystem."
+          />
+
+          <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
+
+            {[
+              {
+                icon: Leaf,
+                title: "Fresh Produce",
+                text: "Farm-fresh products harvested and supplied directly by farmers.",
+              },
+              {
+                icon: ShieldCheck,
+                title: "Verified Farmers",
+                text: "Every seller is verified before listing products.",
+              },
+              {
+                icon: Users,
+                title: "Growing Community",
+                text: "Thousands of buyers and farmers using one trusted platform.",
+              },
+              {
+                icon: TrendingUp,
+                title: "Business Growth",
+                text: "Helping farmers reach more customers and increase income.",
+              },
+            ].map((feature) => {
+
+              const Icon = feature.icon;
+
+              return (
+
+                <div
+                  key={feature.title}
+                  className="rounded-3xl bg-white p-8 shadow-md transition hover:-translate-y-2 hover:shadow-xl"
+                >
+
+                  <Icon
+                    size={48}
+                    className="text-green-600"
+                  />
+
+                  <h3 className="mt-6 text-2xl font-bold">
+                    {feature.title}
+                  </h3>
+
+                  <p className="mt-4 leading-7 text-gray-600">
+                    {feature.text}
+                  </p>
+
+                </div>
+
+              );
+
+            })}
+
+          </div>
+
+        </div>
+
+      </section>
+            {/* ========================================= */}
+      {/* FARMER SUCCESS */}
+      {/* ========================================= */}
+
+      <section className="relative overflow-hidden py-28">
+
+        <img
+          src={heroFarm}
+          alt="Farmers"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+
+        <div className="absolute inset-0 bg-green-900/80" />
+
+        <div className="relative mx-auto max-w-7xl px-6">
+
+          <SectionTitle
+            title="Empowering Nigerian Farmers"
+            subtitle="Helping farmers grow profitable businesses through digital commerce."
+          />
+
+          <div className="mt-16 grid gap-10 text-center text-white md:grid-cols-4">
+
+            {[
+              {
+                number: "100+",
+                label: "Registered Farmers",
+              },
+              {
+                number: "1,000+",
+                label: "Products Listed",
+              },
+              {
+                number: "36",
+                label: "States Covered",
+              },
+              {
+                number: "24/7",
+                label: "Marketplace Access",
+              },
+            ].map((item) => (
+
+              <div key={item.label}>
+
+                <h3 className="text-5xl font-black text-yellow-300">
+                  {item.number}
+                </h3>
+
+                <p className="mt-3 text-lg text-green-100">
+                  {item.label}
+                </p>
+
+              </div>
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* ========================================= */}
+      {/* TESTIMONIALS */}
+      {/* ========================================= */}
+
+      <section className="bg-gray-50 py-24">
+
+        <div className="mx-auto max-w-7xl px-6">
+
+          <SectionTitle
+            title="Trusted by Farmers & Buyers"
+            subtitle="Building confidence in agricultural commerce across Nigeria."
+          />
+
+          <div className="grid gap-8 lg:grid-cols-3">
+
+            {[
+              {
+                name: "Adebayo",
+                role: "Farmer • Ogun State",
+                text:
+                  "Oja-Oko has helped me reach customers beyond my local market and increase my sales.",
+              },
+              {
+                name: "Chioma",
+                role: "Buyer • Lagos",
+                text:
+                  "Buying fresh produce directly from verified farmers has never been easier.",
+              },
+              {
+                name: "Yusuf",
+                role: "Farmer • Kaduna",
+                text:
+                  "Managing products and receiving customer orders online has transformed my business.",
+              },
+            ].map((item) => (
+
+              <div
+                key={item.name}
+                className="rounded-3xl bg-white p-10 shadow-md transition hover:-translate-y-2 hover:shadow-xl"
+              >
+
+                <div className="mb-6 flex text-yellow-500">
+
+                  ⭐⭐⭐⭐⭐
+
+                </div>
+
+                <p className="leading-8 text-gray-600">
+
+                  "{item.text}"
+
+                </p>
+
+                <div className="mt-8">
+
+                  <h4 className="font-bold text-gray-900">
+
+                    {item.name}
+
+                  </h4>
+
+                  <p className="text-sm text-gray-500">
+
+                    {item.role}
+
+                  </p>
+
+                </div>
+
+              </div>
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* ========================================= */}
+      {/* FINAL CTA */}
+      {/* ========================================= */}
+
+      <section className="bg-gradient-to-r from-green-700 via-green-600 to-emerald-600 py-28">
+
+        <div className="mx-auto max-w-4xl px-6 text-center text-white">
+
+          <h2 className="text-5xl font-black leading-tight">
+
+            Join Nigeria's Fastest Growing
+
+            <br />
+
+            Agricultural Marketplace
+
+          </h2>
+
+          <p className="mx-auto mt-8 max-w-3xl text-lg leading-8 text-green-100">
+
+            Whether you're a buyer searching for quality farm produce or
+            a farmer looking to reach thousands of customers,
+            Oja-Oko Marketplace is built for you.
+
+          </p>
+
+          <div className="mt-12 flex flex-wrap justify-center gap-5">
+
+            <Link
+              to="/register/farmer"
+              className="rounded-xl bg-white px-8 py-4 font-semibold text-green-700 transition hover:-translate-y-1 hover:shadow-xl"
+            >
+              Become a Farmer
+            </Link>
+
+            <Link
+              to="/products"
+              className="rounded-xl border border-white px-8 py-4 font-semibold text-white transition hover:bg-white hover:text-green-700"
+            >
+              Shop Products
+            </Link>
+
+          </div>
+
+        </div>
+
+      </section>
+
     </main>
+
   );
+
 };
 
 export default HomePage;
