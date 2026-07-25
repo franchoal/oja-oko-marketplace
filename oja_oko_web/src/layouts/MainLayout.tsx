@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import { logoIcon } from "../assets";
 
 import {
-  Sprout,
   Menu,
   ShoppingCart,
   Bell,
@@ -68,10 +68,13 @@ const MainLayout = () => {
             to="/"
             className="flex items-center gap-3"
           >
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-green-600 text-white shadow-lg">
-              <Sprout size={22} />
-            </div>
-
+          <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-white shadow-lg">
+           <img
+           src={logoIcon}
+           alt="Oja-Oko"
+          className="h-full w-full object-contain"
+            />
+       </div>
             <div>
               <h1 className="text-xl font-extrabold text-green-700">
                 Oja-Oko
@@ -284,18 +287,19 @@ const MainLayout = () => {
 
               <div className="absolute inset-0 bg-gradient-to-br from-green-900/80 to-green-700/70" />
 
-              <div className="relative flex h-full items-center px-6">
+              <div className="relative flex h-full items-center justify-between px-6">
 
                 <div>
 
-                  <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-white/20 backdrop-blur">
+                <div className="mb-3 flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl bg-white shadow">
 
-                    <Sprout
-                      size={24}
-                      className="text-white"
-                    />
+  <img
+    src={logoIcon}
+    alt="Oja-Oko Logo"
+    className="h-full w-full object-contain"
+  />
 
-                  </div>
+</div>
 
                   <h2 className="text-2xl font-bold text-white">
                     Oja-Oko
