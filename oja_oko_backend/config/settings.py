@@ -5,6 +5,7 @@
 from pathlib import Path
 from datetime import timedelta
 import os
+from decouple import config
 
 import dj_database_url
 
@@ -20,19 +21,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY
 # ==========================================================
 
-SECRET_KEY = os.getenv(
+SECRET_KEY = config(
     "SECRET_KEY",
-    "django-insecure-dev-key",
+    default="django-insecure-dev-key",
 )
 
-DEBUG = os.getenv(
+DEBUG = config(
     "DEBUG",
-    "True",
-) == "True"
+    default=True,
+    cast=bool,
+)
 
-ALLOWED_HOSTS = os.getenv(
+ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS",
-    "127.0.0.1,localhost,192.168.42.193,oja-oko-marketplace.onrender.com",
+    default="127.0.0.1,localhost,192.168.42.193,oja-oko-marketplace.onrender.com",
 ).split(",")
 
 # ==========================================================
@@ -213,9 +215,9 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # ==========================================================
 
 CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME"),
-    "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
-    "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
+    "CLOUD_NAME": config("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": config("CLOUDINARY_API_KEY"),
+    "API_SECRET": config("CLOUDINARY_API_SECRET"),
     "SECURE": True,
 }
 # ==========================================================
