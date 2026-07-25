@@ -213,84 +213,109 @@ const reviewCount =
     </h2>
 
   </div>
+ {/* ================= Product Information ================= */}
 
-  {/* Product Information */}
+<Card className="overflow-hidden rounded-[30px] border-0 shadow-lg">
 
-  <Card className="rounded-3xl">
+  <div className="border-b bg-green-50 px-8 py-6">
 
-    <h2 className="mb-6 text-2xl font-bold">
-      Product Information
+    <h2 className="text-2xl font-bold text-gray-900">
+      📦 Product Information
     </h2>
 
-    <div className="grid gap-5 sm:grid-cols-2">
+    <p className="mt-2 text-gray-500">
+      Important details about this product.
+    </p>
 
-      <div>
+  </div>
 
-        <p className="text-sm text-gray-500">
-          Category
-        </p>
+  <div className="divide-y">
 
-        <p className="mt-1 font-semibold">
-          {product.category_name}
-        </p>
+    <div className="flex items-center justify-between px-8 py-5">
 
-      </div>
+      <span className="font-medium text-gray-500">
+        Category
+      </span>
 
-      <div>
+      <span className="rounded-full bg-green-100 px-4 py-2 font-semibold text-green-700">
 
-        <p className="text-sm text-gray-500">
-          Quantity Available
-        </p>
+        {product.category_name}
 
-        <p className="mt-1 font-semibold">
-          {product.quantity} {product.unit}
-        </p>
-
-      </div>
-
-      <div>
-
-        <p className="text-sm text-gray-500">
-          Seller
-        </p>
-
-        <p className="mt-1 font-semibold">
-          {product.farmer}
-        </p>
-
-      </div>
-
-      <div>
-
-        <p className="text-sm text-gray-500">
-          Availability
-        </p>
-
-        <p
-          className={`mt-1 font-semibold ${
-            product.is_available
-              ? "text-green-700"
-              : "text-red-600"
-          }`}
-        >
-          {product.is_available
-            ? "Available"
-            : "Unavailable"}
-        </p>
-
-      </div>
+      </span>
 
     </div>
 
-  </Card>
+    <div className="flex items-center justify-between px-8 py-5">
 
-  {/* Description */}
+      <span className="font-medium text-gray-500">
+        Quantity Available
+      </span>
 
-  <Card className="rounded-3xl">
+      <span className="font-bold text-gray-900">
 
-    <h2 className="mb-5 text-2xl font-bold">
-      Description
+        {product.quantity} {product.unit}
+
+      </span>
+
+    </div>
+
+    <div className="flex items-center justify-between px-8 py-5">
+
+      <span className="font-medium text-gray-500">
+        Availability
+      </span>
+
+      <span
+        className={`rounded-full px-4 py-2 text-sm font-bold ${
+          product.is_available
+            ? "bg-green-100 text-green-700"
+            : "bg-red-100 text-red-700"
+        }`}
+      >
+
+        {product.is_available
+          ? "Available"
+          : "Out of Stock"}
+
+      </span>
+
+    </div>
+
+    <div className="flex items-center justify-between px-8 py-5">
+
+      <span className="font-medium text-gray-500">
+        Farmer
+      </span>
+
+      <span className="font-semibold text-gray-900">
+
+        {product.farmer}
+
+      </span>
+
+    </div>
+
+  </div>
+
+</Card>
+
+{/* ================= Description ================= */}
+
+<Card className="overflow-hidden rounded-[30px] border-0 shadow-lg">
+
+  <div className="border-b bg-green-50 px-8 py-6">
+
+    <h2 className="text-2xl font-bold text-gray-900">
+      📝 Product Description
     </h2>
+
+    <p className="mt-2 text-gray-500">
+      Learn more about this farm product.
+    </p>
+
+  </div>
+
+  <div className="space-y-6 px-8 py-8">
 
     <p className="leading-8 text-gray-600">
 
@@ -298,78 +323,146 @@ const reviewCount =
 
     </p>
 
-  </Card>
+    <div className="grid gap-4 sm:grid-cols-2">
 
-  {/* CTA */}
+      <div className="rounded-2xl bg-green-50 p-5">
 
-  <Button
-    className="w-full py-4 text-lg"
-    onClick={handleAddToCart}
-    disabled={
-      isPending ||
-      !product.is_available
-    }
-  >
+        <h3 className="font-semibold text-green-700">
 
-    {isPending
-      ? "Adding to Cart..."
-      : product.is_available
-      ? "Add To Cart"
-      : "Currently Unavailable"}
+          🌱 Farm Fresh
 
-  </Button>
+        </h3>
 
-</div>
-{/* ================= REVIEWS ================= */}
+        <p className="mt-2 text-sm leading-6 text-gray-600">
 
-<section className="mt-24">
+          Carefully harvested and supplied directly by verified farmers.
 
-  <div className="mb-12 flex flex-col justify-between gap-6 rounded-3xl bg-gradient-to-r from-green-700 to-green-600 p-8 text-white lg:flex-row lg:items-center">
+        </p>
 
-    <div>
+      </div>
 
-      <h2 className="text-4xl font-extrabold">
-        Customer Reviews
-      </h2>
+      <div className="rounded-2xl bg-yellow-50 p-5">
 
-      <p className="mt-3 text-green-100">
-        Genuine feedback from verified buyers helps other customers make informed decisions.
-      </p>
+        <h3 className="font-semibold text-yellow-700">
 
-    </div>
+          🚚 Fast Delivery
 
-    <div className="rounded-3xl bg-white/15 px-8 py-6 backdrop-blur">
+        </h3>
 
-      <p className="text-5xl font-extrabold">
+        <p className="mt-2 text-sm leading-6 text-gray-600">
 
-        ⭐ {Number(averageRating).toFixed(1)}
+          Delivered fresh with quality preserved from farm to doorstep.
 
-      </p>
+        </p>
 
-      <p className="mt-2 text-center text-green-100">
-
-        {reviewCount} Review
-        {reviewCount !== 1 ? "s" : ""}
-
-      </p>
+      </div>
 
     </div>
 
   </div>
 
+</Card>
+
+<Button
+  className="mt-2 w-full py-4 text-lg font-bold"
+  onClick={handleAddToCart}
+  disabled={
+    isPending ||
+    !product.is_available
+  }
+>
+
+  {isPending
+    ? "Adding to Cart..."
+    : product.is_available
+      ? "🛒 Add To Cart"
+      : "Currently Unavailable"}
+
+</Button>
+
+</div>
+ {/* ================= Reviews Header ================= */}
+
+<div className="mb-10 overflow-hidden rounded-[32px] bg-gradient-to-r from-green-700 via-green-600 to-green-500 text-white shadow-xl">
+
+  <div className="grid gap-8 p-8 lg:grid-cols-[1fr_auto] lg:items-center">
+
+    {/* Left */}
+
+    <div>
+
+      <span className="rounded-full bg-white/20 px-4 py-2 text-sm font-semibold backdrop-blur">
+
+        Customer Feedback
+
+      </span>
+
+      <h2 className="mt-5 text-4xl font-extrabold">
+
+        Customer Reviews
+
+      </h2>
+
+      <p className="mt-4 max-w-2xl leading-8 text-green-100">
+
+        Read genuine experiences from buyers who have purchased this
+        product. Honest reviews help everyone make better purchasing
+        decisions.
+
+      </p>
+
+    </div>
+
+    {/* Right */}
+
+    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
+
+      <div className="rounded-3xl bg-white/15 p-6 text-center backdrop-blur">
+
+        <p className="text-5xl font-extrabold">
+
+          ⭐ {Number(averageRating).toFixed(1)}
+
+        </p>
+
+        <p className="mt-2 text-green-100">
+
+          Average Rating
+
+        </p>
+
+      </div>
+
+      <div className="rounded-3xl bg-white/15 p-6 text-center backdrop-blur">
+
+        <p className="text-5xl font-extrabold">
+
+          {reviewCount}
+
+        </p>
+
+        <p className="mt-2 text-green-100">
+
+          Review{reviewCount !== 1 ? "s" : ""}
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
   {/* Review Form */}
+<section className="mt-20">
+<div className="mb-12">
 
-  <Card className="mb-10 rounded-3xl">
+  <ReviewForm
+    productId={product.id}
+  />
 
-    <h3 className="mb-6 text-2xl font-bold">
-      Leave a Review
-    </h3>
-
-    <ReviewForm
-      productId={product.id}
-    />
-
-  </Card>
+</div>
 
   {/* Reviews */}
 
