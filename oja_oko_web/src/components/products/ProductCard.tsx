@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import {
+  ArrowRight,
   Leaf,
   MapPin,
   Star,
@@ -16,8 +17,7 @@ const ProductCard = ({
   product,
 }: ProductCardProps) => {
   return (
-
-    <Card className="group overflow-hidden rounded-3xl border border-gray-100 bg-white p-0 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+    <Card className="group overflow-hidden rounded-3xl border border-gray-100 bg-white p-0 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-green-200 hover:shadow-2xl">
 
       {/* ================= IMAGE ================= */}
 
@@ -25,67 +25,94 @@ const ProductCard = ({
 
         <img
           src={
-            product.image ??
+            product.image ||
             "/placeholder-product.png"
           }
           alt={product.name}
-          className="h-64 w-full object-cover transition duration-500 group-hover:scale-110"
+          loading="lazy"
+          onError={(e) => {
+            e.currentTarget.src =
+              "/placeholder-product.png";
+          }}
+          className="h-64 w-full object-cover transition duration-700 group-hover:scale-110"
         />
 
         {/* Category */}
 
-        <span className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-green-700 backdrop-blur">
+        <div className="absolute left-4 top-4">
 
-          <Leaf size={14} />
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-green-700 shadow backdrop-blur">
 
-          {product.category_name}
+            <Leaf size={14} />
 
-        </span>
+            {product.category_name}
+
+          </span>
+
+        </div>
 
         {/* Availability */}
 
-        <span
-          className={`absolute right-4 top-4 rounded-full px-4 py-2 text-xs font-bold shadow ${
-            product.is_available
-              ? "bg-green-600 text-white"
-              : "bg-red-600 text-white"
-          }`}
-        >
-          {product.is_available
-            ? "Available"
-            : "Out of Stock"}
-        </span>
+        <div className="absolute right-4 top-4">
+
+          <span
+            className={`rounded-full px-4 py-2 text-xs font-bold shadow ${
+              product.is_available
+                ? "bg-green-600 text-white"
+                : "bg-red-600 text-white"
+            }`}
+          >
+            {product.is_available
+              ? "Available Now"
+              : "Out of Stock"}
+          </span>
+
+        </div>
 
       </div>
 
       {/* ================= CONTENT ================= */}
 
-      <div className="space-y-5 p-6">
+      <div className="space-y-6 p-6">
 
         {/* Product */}
 
         <div>
 
-          <h3 className="line-clamp-1 text-2xl font-bold text-gray-900">
+          <h3 className="min-h-[64px] line-clamp-2 text-2xl font-bold leading-tight text-gray-900">
 
             {product.name}
 
           </h3>
 
-          <div className="mt-2 flex items-center gap-2 text-sm text-gray-500">
+          <div className="mt-4">
 
-            <MapPin size={15} />
+            <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">
 
-            <span>
+              Sold by
 
-              {product.farmer}
+            </p>
 
-            </span>
+            <div className="mt-1 flex items-center gap-2 text-sm text-gray-600">
+
+              <MapPin
+                size={15}
+                className="text-green-600"
+              />
+
+              <span className="font-medium">
+
+                {product.farmer}
+
+              </span>
+
+            </div>
 
           </div>
 
         </div>
-                {/* ================= RATINGS ================= */}
+
+        {/* ================= RATINGS ================= */}
 
         <div className="flex items-center justify-between">
 
@@ -100,18 +127,22 @@ const ProductCard = ({
                   fill="currentColor"
                 />
 
+                <span className="font-bold text-gray-900">
+
+                  {product.average_rating.toFixed(
+                    1
+                  )}
+
+                </span>
+
               </div>
-
-              <span className="font-semibold text-gray-900">
-
-                {product.average_rating.toFixed(1)}
-
-              </span>
 
               <span className="text-sm text-gray-500">
 
                 ({product.review_count} review
-                {product.review_count !== 1 ? "s" : ""})
+                {product.review_count !== 1
+                  ? "s"
+                  : ""})
 
               </span>
 
@@ -119,9 +150,9 @@ const ProductCard = ({
 
           ) : (
 
-            <span className="text-sm italic text-gray-400">
+            <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
 
-              No reviews yet
+              New Arrival
 
             </span>
 
@@ -131,42 +162,47 @@ const ProductCard = ({
 
         {/* ================= PRICE ================= */}
 
-        <div className="flex items-end justify-between border-t border-gray-100 pt-5">
+        <div className="flex items-end justify-between rounded-2xl border border-gray-100 bg-gray-50 p-5">
 
           <div>
 
-            <p className="text-xs uppercase tracking-wide text-gray-400">
+            <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">
 
-              Price
+              Starting From
 
             </p>
 
-            <h3 className="text-3xl font-extrabold text-green-700">
+            <h2 className="mt-1 text-3xl font-extrabold text-green-700">
 
-              ₦{Number(product.price).toLocaleString()}
+              ₦
+              {Number(
+                product.price
+              ).toLocaleString()}
 
-            </h3>
+            </h2>
 
           </div>
 
-          <div className="rounded-xl bg-gray-100 px-4 py-2 text-center">
+          <div className="rounded-xl bg-white px-4 py-3 text-center shadow-sm">
 
             <p className="text-xs text-gray-500">
 
-              Quantity
+              Available
 
             </p>
 
-            <p className="font-semibold text-gray-800">
+            <p className="font-bold text-gray-800">
 
-              {product.quantity} {product.unit}
+              {product.quantity}{" "}
+              {product.unit}
 
             </p>
 
           </div>
 
         </div>
-                {/* ================= FOOTER ================= */}
+
+        {/* ================= FOOTER ================= */}
 
         <div className="flex items-center justify-between border-t border-gray-100 pt-5">
 
@@ -178,16 +214,21 @@ const ProductCard = ({
             }`}
           >
             {product.is_available
-              ? "In Stock"
-              : "Out of Stock"}
+              ? "Ready to Order"
+              : "Unavailable"}
           </span>
 
           <Link
             to={`/products/${product.id}`}
           >
-            <Button className="rounded-xl px-6">
-              View Details
+            <Button className="flex items-center gap-2 rounded-xl px-6 transition-all group-hover:bg-green-700">
+
+              View Product
+
+              <ArrowRight size={16} />
+
             </Button>
+
           </Link>
 
         </div>
@@ -195,9 +236,7 @@ const ProductCard = ({
       </div>
 
     </Card>
-
   );
-
 };
 
 export default ProductCard;

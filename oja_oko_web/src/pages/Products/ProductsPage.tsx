@@ -102,7 +102,7 @@ const ProductsPage = () => {
 
         <img
           src={marketplaceBanner}
-          alt="Marketplace"
+          alt="Nigeria's Digital Agricultural Marketplace"
           className="absolute inset-0 h-full w-full object-cover"
         />
 

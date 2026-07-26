@@ -590,7 +590,7 @@ const HomePage = () => {
 
           <h2 className="text-5xl font-black leading-tight">
 
-            Join Nigeria's Fastest Growing Agricultural Marketplace
+            Join Nigeria's Fastest Growing
 
             <br />
 
