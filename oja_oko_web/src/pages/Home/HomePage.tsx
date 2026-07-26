@@ -73,26 +73,27 @@ const HomePage = () => {
             <div>
 
               <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm font-semibold text-white backdrop-blur">
-                🇳🇬 Nigeria's Trusted Agricultural Marketplace
+                🇳🇬 Nigeria's Digital Agricultural Marketplace
               </span>
 
               <h1 className="mt-8 text-5xl font-black leading-tight text-white lg:text-7xl">
 
-                Connecting
+                Connecting Farmers with
 
                 <span className="block text-yellow-300">
-                  Farmers
+                   Markets
                 </span>
 
-                With Buyers
+                Empowering Agriculture Through Technology
 
               </h1>
 
               <p className="mt-8 max-w-xl text-lg leading-8 text-green-50">
 
-                Buy fresh farm produce directly from verified Nigerian farmers
-                while helping local agriculture thrive through digital commerce.
-
+               Oja-Oko connects verified farmers directly with households, retailers, restaurants,
+               hotels, processors, and bulk buyers across Nigeria. More than a marketplace, 
+               we provide the digital tools farmers need to sell, manage, 
+               and grow profitable agricultural businesses.
               </p>
 
               <div className="mt-10 flex flex-wrap gap-5">
@@ -179,9 +180,9 @@ const HomePage = () => {
 
                   {[
                     "Verified Farmers",
-                    "Fresh Harvests",
-                    "Secure Transactions",
-                    "Nationwide Marketplace",
+                    "Secure Marketplace",
+                    "Business Growth Tools",
+                    "Nationwide Reach",
                   ].map((item) => (
 
                     <div
@@ -223,7 +224,8 @@ const HomePage = () => {
 
           <SectionTitle
             title="Browse Popular Categories"
-            subtitle="Fresh agricultural products sourced directly from trusted farmers across Nigeria."
+            subtitle="Explore quality agricultural products from verified farmers across Nigeria, 
+            sourced with transparency and delivered through a trusted digital marketplace."
           />
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -295,8 +297,8 @@ const HomePage = () => {
         <div className="mx-auto max-w-7xl px-6">
 
           <SectionTitle
-            title="How Oja-Oko Works"
-            subtitle="A simple marketplace connecting Nigerian farmers with buyers."
+            title="How Oja-Oko Works for Farmers & Buyers"
+            subtitle="Whether you're buying fresh produce or growing your agricultural business, Oja-Oko makes every step simple."
           />
 
           <div className="grid gap-10 md:grid-cols-3">
@@ -304,7 +306,7 @@ const HomePage = () => {
             {[
               {
                 icon: Search,
-                title: "Browse Products",
+                title: "Discover Trusted Farmers",
                 text: "Explore hundreds of fresh agricultural products from verified farmers.",
               },
               {
@@ -314,7 +316,7 @@ const HomePage = () => {
               },
               {
                 icon: ShoppingBasket,
-                title: "Order Easily",
+                title: "Order With Confidence",
                 text: "Place orders quickly and manage everything from your account.",
               },
             ].map((step, index) => {
@@ -383,8 +385,8 @@ const HomePage = () => {
             {[
               {
                 icon: Leaf,
-                title: "Fresh Produce",
-                text: "Farm-fresh products harvested and supplied directly by farmers.",
+                title: "Verified Marketplace",
+                text: "Farm-fresh products harvested and supplied directly by trusted farmers.",
               },
               {
                 icon: ShieldCheck,
@@ -393,13 +395,13 @@ const HomePage = () => {
               },
               {
                 icon: Users,
-                title: "Growing Community",
-                text: "Thousands of buyers and farmers using one trusted platform.",
+                title: "Nationwide Network",
+                text: "Connecting farmers and buyers across every region of Nigeria",
               },
               {
                 icon: TrendingUp,
-                title: "Business Growth",
-                text: "Helping farmers reach more customers and increase income.",
+                title: "Farmer Business Platform",
+                text: "Helping farmers grow profitable business through technology",
               },
             ].map((feature) => {
 
@@ -453,8 +455,9 @@ const HomePage = () => {
         <div className="relative mx-auto max-w-7xl px-6">
 
           <SectionTitle
-            title="Empowering Nigerian Farmers"
-            subtitle="Helping farmers grow profitable businesses through digital commerce."
+            title="Helping farmers Build Profitable Agricultural Business"
+            subtitle="Oja-Oko gives farmers more than market access. 
+            We provide the digital foundation for sustainable agricultural growth."
           />
 
           <div className="mt-16 grid gap-10 text-center text-white md:grid-cols-4">
@@ -507,7 +510,7 @@ const HomePage = () => {
         <div className="mx-auto max-w-7xl px-6">
 
           <SectionTitle
-            title="Trusted by Farmers & Buyers"
+            title="Built For Farmers, Trusted by Buyers"
             subtitle="Building confidence in agricultural commerce across Nigeria."
           />
 
@@ -587,7 +590,7 @@ const HomePage = () => {
 
           <h2 className="text-5xl font-black leading-tight">
 
-            Join Nigeria's Fastest Growing
+            Join Nigeria's Fastest Growing Agricultural Marketplace
 
             <br />
 
@@ -597,9 +600,9 @@ const HomePage = () => {
 
           <p className="mx-auto mt-8 max-w-3xl text-lg leading-8 text-green-100">
 
-            Whether you're a buyer searching for quality farm produce or
-            a farmer looking to reach thousands of customers,
-            Oja-Oko Marketplace is built for you.
+           Whether you're a farmer looking to reach larger markets 
+           or a buyer searching for trusted agricultural products,
+           Oja-Oko provides the platform to connect, trade, and grow.
 
           </p>
 
