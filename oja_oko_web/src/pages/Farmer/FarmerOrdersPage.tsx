@@ -43,6 +43,33 @@ const FarmerOrdersPage = () => {
   } = useFarmerOrders();
 
   const orders = data?.results ?? [];
+  if (isError) {
+
+  return (
+
+    <main className="mx-auto max-w-7xl px-6 py-10">
+
+      <Card className="border-red-200 bg-red-50 p-8">
+
+        <h2 className="text-2xl font-bold text-red-700">
+
+          Unable to load orders
+
+        </h2>
+
+        <p className="mt-3 text-red-600">
+
+          Please refresh the page and try again.
+
+        </p>
+
+      </Card>
+
+    </main>
+
+  );
+
+}
   // ======================================================
 // LOADING
 // ======================================================
