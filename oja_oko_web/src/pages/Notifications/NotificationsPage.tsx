@@ -141,84 +141,134 @@ const NotificationsPage = () => {
 
     <main className="mx-auto max-w-7xl px-6 py-12">
 
-      {/* Hero */}
+      {/* ====================================================== */}
+{/* HERO */}
+{/* ====================================================== */}
 
-      <section className="mb-12 overflow-hidden rounded-[36px] bg-gradient-to-r from-green-700 via-green-600 to-green-500 text-white shadow-xl">
+<section className="relative overflow-hidden rounded-[36px]">
 
-        <div className="grid gap-8 p-10 lg:grid-cols-[1fr_auto] lg:items-center">
+  {/* Background */}
 
-          <div>
+  <div className="absolute inset-0 bg-gradient-to-r from-green-800 via-green-700 to-emerald-600" />
 
-            <span className="rounded-full bg-white/20 px-4 py-2 text-sm font-semibold backdrop-blur">
+  {/* Decorative Shapes */}
 
-              Notification Center
+  <div className="absolute -right-16 -top-16 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
 
-            </span>
+  <div className="absolute bottom-0 left-0 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
 
-            <h1 className="mt-6 text-5xl font-extrabold">
+  <div className="relative grid gap-10 px-10 py-16 lg:grid-cols-[1fr_340px] lg:items-center lg:px-16">
 
-              Notifications
+    {/* Left */}
 
-            </h1>
+    <div>
 
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-green-100">
+      <span className="inline-flex items-center rounded-full bg-white/20 px-5 py-2 text-sm font-semibold backdrop-blur">
 
-              Stay updated with your marketplace activity,
-              orders, deliveries and important account updates.
+        🔔 Notification Center
 
-            </p>
+      </span>
 
-          </div>
+      <h1 className="mt-8 text-5xl font-extrabold leading-tight text-white lg:text-6xl">
 
-          <div className="space-y-5">
+        Stay Connected
+        <br />
+        Stay Informed
 
-            <div className="rounded-[28px] bg-white/15 p-8 text-center backdrop-blur">
+      </h1>
 
-              <BellRing
-                size={56}
-                className="mx-auto mb-5"
-              />
+      <p className="mt-6 max-w-3xl text-lg leading-8 text-green-100">
 
-              <p className="text-5xl font-extrabold">
+        Receive real-time updates about orders, payments,
+        deliveries, product approvals and important account
+        activities from across Oja-Oko Marketplace.
 
-                {unreadCount}
+      </p>
 
-              </p>
+    </div>
 
-              <p className="mt-2 text-green-100">
+    {/* Right */}
 
-                Unread
+    <div className="grid gap-5">
 
-              </p>
+      <div className="rounded-[28px] bg-white/15 p-6 text-center backdrop-blur">
 
-            </div>
+        <BellRing
+          size={42}
+          className="mx-auto mb-4 text-white"
+        />
 
-            {unreadCount > 0 && (
+        <p className="text-5xl font-black text-white">
 
-              <Button
-                onClick={() =>
-                  markAllMutation.mutate()
-                }
-                disabled={
-                  markAllMutation.isPending
-                }
-                className="w-full bg-white text-green-700 hover:bg-green-50"
-              >
+          {unreadCount}
 
-                {markAllMutation.isPending
-                  ? "Updating..."
-                  : "Mark All Read"}
+        </p>
 
-              </Button>
+        <p className="mt-2 text-green-100">
 
-            )}
+          Unread Notifications
 
-          </div>
+        </p>
+
+      </div>
+
+      <div className="grid grid-cols-2 gap-5">
+
+        <div className="rounded-[24px] bg-white/15 p-5 text-center backdrop-blur">
+
+          <p className="text-3xl font-black text-white">
+
+            {notificationList.length}
+
+          </p>
+
+          <p className="mt-2 text-sm text-green-100">
+
+            Total
+
+          </p>
 
         </div>
 
-      </section>
+        <div className="rounded-[24px] bg-white/15 p-5 text-center backdrop-blur">
 
+          <p className="text-3xl font-black text-white">
+
+            {notificationList.length - unreadCount}
+
+          </p>
+
+          <p className="mt-2 text-sm text-green-100">
+
+            Read
+
+          </p>
+
+        </div>
+
+      </div>
+
+      {unreadCount > 0 && (
+
+        <Button
+          onClick={() => markAllMutation.mutate()}
+          disabled={markAllMutation.isPending}
+          className="rounded-2xl bg-white py-3 font-bold text-green-700 hover:bg-green-50"
+        >
+
+          {markAllMutation.isPending
+            ? "Updating..."
+            : "✓ Mark All As Read"}
+
+        </Button>
+
+      )}
+
+    </div>
+
+  </div>
+
+</section>
       {/* Empty State */}
 
       {notificationList.length === 0 ? (
@@ -251,123 +301,162 @@ const NotificationsPage = () => {
 
       ) : (
 
-        <div className="space-y-8">
+        <div className="space-y-6">
 
-          {notificationList.map(
-            (notification) => (
+  {notificationList.map((notification) => (
 
-              <div
-  key={notification.id}
-  onClick={() => {
-    if (!notification.is_read) {
-      markReadMutation.mutate(notification.id);
-    }
-  }}
-  className="cursor-pointer"
->
+    <div
+      key={notification.id}
+      onClick={() => {
+        if (!notification.is_read) {
+          markReadMutation.mutate(notification.id);
+        }
+      }}
+      className="group cursor-pointer"
+    >
 
-  <Card
-    className={`overflow-hidden rounded-[30px] p-0 transition duration-300 hover:-translate-y-1 hover:shadow-xl ${
-      notification.is_read
-        ? "bg-white"
-        : "border-l-4 border-green-600 bg-green-50"
-    }`}
-  >
-                <div className="flex flex-col gap-6 p-8 md:flex-row md:items-start md:justify-between">
+      <Card
+        className={`overflow-hidden rounded-[30px] border-0 p-0 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${
+          notification.is_read
+            ? "bg-white"
+            : "ring-2 ring-green-200"
+        }`}
+      >
 
-                  <div className="flex gap-5">
+        <div className="grid gap-8 p-8 lg:grid-cols-[72px_1fr_auto]">
 
-                    <div
-                      className={`flex h-14 w-14 items-center justify-center rounded-full ${
-                        notification.is_read
-                          ? "bg-gray-100"
-                          : "bg-green-100"
-                      }`}
-                    >
+          {/* ====================================================== */}
+          {/* ICON */}
+          {/* ====================================================== */}
 
-                      <BellRing
-                        size={28}
-                        className={
-                          notification.is_read
-                            ? "text-gray-500"
-                            : "text-green-700"
-                        }
-                      />
+          <div
+            className={`flex h-[72px] w-[72px] items-center justify-center rounded-3xl ${
+              notification.is_read
+                ? "bg-gray-100"
+                : "bg-green-100"
+            }`}
+          >
 
-                    </div>
+            <BellRing
+              size={34}
+              className={
+                notification.is_read
+                  ? "text-gray-500"
+                  : "text-green-700"
+              }
+            />
 
-                    <div>
+          </div>
 
-                      <div className="flex flex-wrap items-center gap-3">
+          {/* ====================================================== */}
+          {/* CONTENT */}
+          {/* ====================================================== */}
 
-                        <h2 className="text-2xl font-bold text-gray-900">
+          <div>
 
-                          {notification.title}
+            <div className="flex flex-wrap items-center gap-3">
 
-                        </h2>
+              <h2 className="text-2xl font-bold text-gray-900 transition group-hover:text-green-700">
 
-                        {!notification.is_read && (
+                {notification.title}
 
-                          <span className="rounded-full bg-green-600 px-4 py-1 text-xs font-bold uppercase tracking-wide text-white">
+              </h2>
 
-                            New
+              {!notification.is_read && (
 
-                          </span>
+                <span className="rounded-full bg-green-600 px-4 py-1 text-xs font-bold uppercase tracking-wide text-white">
 
-                        )}
+                  New
 
-                      </div>
+                </span>
 
-                      <p className="mt-4 max-w-3xl leading-8 text-gray-600">
+              )}
 
-                        {notification.message}
+            </div>
 
-                      </p>
+            <p className="mt-4 max-w-3xl leading-8 text-gray-600">
 
-                    </div>
+              {notification.message}
 
-                  </div>
+            </p>
 
-                  <div className="space-y-4 text-right">
+          </div>
 
-                    <div className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-4 py-2 text-sm font-semibold capitalize text-gray-600">
+          {/* ====================================================== */}
+          {/* META */}
+          {/* ====================================================== */}
 
-                      <CheckCircle2
-                        size={16}
-                      />
+          <div className="flex flex-col items-end justify-between">
 
-                      {notification.notification_type.replaceAll(
-                        "_",
-                        " "
-                      )}
+            <span className="rounded-full bg-gray-100 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-gray-600">
 
-                    </div>
+              {notification.notification_type.replaceAll(
+                "_",
+                " "
+              )}
 
-                    <div className="flex items-center justify-end gap-2 text-sm text-gray-500">
+            </span>
 
-                      <Clock3
-                        size={16}
-                      />
+            <div className="mt-8 flex items-center gap-2 text-sm text-gray-500">
 
-                      {new Date(
-                        notification.created_at
-                      ).toLocaleString()}
+              <Clock3 size={16} />
 
-                    </div>
+              {new Date(
+                notification.created_at
+              ).toLocaleString()}
 
-                  </div>
+            </div>
 
-                </div>
+          </div>
 
-              </Card>
-              </div>
+        </div>
 
-            )
+        {/* ====================================================== */}
+        {/* FOOTER */}
+        {/* ====================================================== */}
+
+        <div className="flex items-center justify-between border-t border-gray-100 bg-gray-50 px-8 py-4">
+
+          <div className="flex items-center gap-3">
+
+            <CheckCircle2
+              size={18}
+              className={
+                notification.is_read
+                  ? "text-green-600"
+                  : "text-gray-400"
+              }
+            />
+
+            <span className="text-sm font-medium text-gray-600">
+
+              {notification.is_read
+                ? "Notification Read"
+                : "Click to mark as read"}
+
+            </span>
+
+          </div>
+
+          {!notification.is_read && (
+
+            <span className="rounded-full bg-green-100 px-4 py-2 text-xs font-bold uppercase tracking-wide text-green-700">
+
+              Action Required
+
+            </span>
 
           )}
 
         </div>
 
+      </Card>
+
+    </div>
+
+  ))}
+
+</div>
       )}
 
     </main>
