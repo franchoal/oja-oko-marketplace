@@ -81,7 +81,7 @@ const HomePage = () => {
                 Connecting Farmers with
 
                 <span className="block text-yellow-300">
-                   Markets
+                   Markets,
                 </span>
 
                 Empowering Agriculture Through Technology
