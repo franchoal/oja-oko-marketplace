@@ -10,9 +10,9 @@ import profileCover from "./backgrounds/profile-cover.jpeg";
 
 // Categories
 import vegetables from "./categories/vegetables.png";
-import fruits from "./categories/fruits.jpeg";
+import fruits from "./categories/fruits.png";
 import grains from "./categories/grains.png";
-import livestock from "./categories/livestock.jpg";
+import livestock from "./categories/livestock.png";
 
 // Products
 import tomatoes from "./products/tomatoes.jpeg";
