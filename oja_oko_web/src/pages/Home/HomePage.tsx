@@ -247,6 +247,7 @@ const HomePage = () => {
                 image: livestock,
                 title: "Livestock",
               },
+              
             ].map((category) => (
 
               <Link
