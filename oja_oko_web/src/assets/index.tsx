@@ -27,9 +27,9 @@ export { default as profileCover } from "./images/backgrounds/profile-cover.jpeg
 ========================================== */
 
 export { default as vegetables } from "./images/categories/vegetables.png";
-export { default as fruits } from "./images/categories/fruits.jpeg";
+export { default as fruits } from "./images/categories/fruits.png";
 export { default as grains } from "./images/categories/grains.png";
-export { default as livestock } from "./images/categories/livestock.jpg";
+export { default as livestock } from "./images/categories/livestock.png";
 
 /* ==========================================
    PRODUCT IMAGES
