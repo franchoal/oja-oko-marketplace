@@ -27,7 +27,7 @@ class Notification(models.Model):
         related_name="notifications",
     )
 
-    AgricHub Africa = models.CharField(
+    title = models.CharField(
         max_length=255,
     )
 
@@ -48,9 +48,8 @@ class Notification(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
-
         verbose_name = "Notification"
         verbose_name_plural = "Notifications"
 
     def __str__(self):
-        return f"{self.AgricHub Africa} - {self.user.email}"
+        return f"{self.title} - {self.user.email}"
