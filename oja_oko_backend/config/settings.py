@@ -311,11 +311,14 @@ CORS_ALLOWED_ORIGINS = [
 
     # Production Frontend
     "https://oja-oko-marketplace.vercel.app",
+    "https://agrichub-africa.vercel.app",
 ]
+
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
     "https://oja-oko-marketplace.vercel.app",
+    "https://agrichub-africa.vercel.app",
 ]
 
 # ==========================================================
