@@ -1,4 +1,4 @@
-# Oja-Oko Marketplace
+# AgricHub Marketplace
 
 # Product Bible
 
@@ -12,7 +12,7 @@
 
 # 1. Product Overview
 
-Oja-Oko Marketplace is a digital agricultural marketplace that connects farmers directly with buyers through a secure, scalable and user-friendly platform.
+AgricHub Marketplace is a digital agricultural marketplace that connects farmers directly with buyers through a secure, scalable and user-friendly platform.
 
 The marketplace enables farmers to showcase agricultural products while enabling buyers to discover, compare and purchase products directly from verified farmers.
 
@@ -480,7 +480,7 @@ Represents a notification sent to a user.
 |--------|------|-------|
 | id | BigAutoField | Primary Key |
 | user | ForeignKey(User) | Notification recipient |
-| title | CharField | Notification title |
+| AgricHub Africa | CharField | Notification AgricHub Africa |
 | message | TextField | Notification content |
 | notification_type | CharField | Registration / Product / Order / Payment / Delivery |
 | is_read | BooleanField | Read status |
@@ -669,7 +669,7 @@ The platform must be:
 
 # 20. Product Philosophy
 
-Every feature added to Oja-Oko Marketplace must answer one question:
+Every feature added to AgricHub Marketplace must answer one question:
 
 > Does this feature improve agricultural commerce for farmers and buyers?
 

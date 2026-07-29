@@ -1,7 +1,7 @@
-# Oja-Oko Marketplace
+# AgricHub Marketplace
 ## Database Schema
 
-This document defines the database structure for the Oja-Oko Marketplace MVP.
+This document defines the database structure for the AgricHub Marketplace MVP.
 
 Only models approved in the Product Bible should be included here.
 

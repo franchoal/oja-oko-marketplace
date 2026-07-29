@@ -1,4 +1,4 @@
-# Oja-Oko Marketplace
+# AgricHub Marketplace
 
 # Backend Blueprint
 
@@ -12,7 +12,7 @@
 
 # 1. Overview
 
-The Oja-Oko Marketplace backend is built as a RESTful API using Django and Django REST Framework (DRF).
+The AgricHub Marketplace backend is built as a RESTful API using Django and Django REST Framework (DRF).
 
 The backend serves both the React web application and the React Native mobile application from a single API.
 

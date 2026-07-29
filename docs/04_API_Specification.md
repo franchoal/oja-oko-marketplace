@@ -1,4 +1,4 @@
-# Oja-Oko Marketplace
+# AgricHub Marketplace
 
 # Database Schema
 
@@ -12,7 +12,7 @@
 
 # Overview
 
-This document defines the official database schema for the Oja-Oko Marketplace MVP.
+This document defines the official database schema for the AgricHub Marketplace MVP.
 
 All Django models must conform to this schema unless a formal schema revision is approved.
 
@@ -313,7 +313,7 @@ Fields
 |--------|------|
 | id | Integer |
 | user | FK(User) |
-| title | String |
+| AgricHub Africa | String |
 | message | Text |
 | is_read | Boolean |
 | created_at | DateTime |

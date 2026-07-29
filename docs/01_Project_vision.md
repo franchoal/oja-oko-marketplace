@@ -1,4 +1,4 @@
-# Oja-Oko Marketplace
+# AgricHub Marketplace
 
 **Version:** 1.0
 
@@ -47,7 +47,7 @@ These challenges reduce profitability for farmers and increase costs for buyers.
 
 # Solution
 
-Oja-Oko Marketplace provides a secure digital platform where farmers can list agricultural products and buyers can discover, compare, and purchase directly from verified farmers.
+AgricHub Marketplace provides a secure digital platform where farmers can list agricultural products and buyers can discover, compare, and purchase directly from verified farmers.
 
 The platform will provide:
 
@@ -144,7 +144,7 @@ The first production release will include:
 
 # Guiding Principles
 
-Every feature developed for Oja-Oko Marketplace should satisfy at least one of the following principles:
+Every feature developed for AgricHub Marketplace should satisfy at least one of the following principles:
 
 - Improve farmer experience.
 - Improve buyer experience.
@@ -159,7 +159,7 @@ Features that do not align with these principles should not be added without rev
 
 # Success Indicators
 
-The success of Oja-Oko Marketplace will be measured by:
+The success of AgricHub Marketplace will be measured by:
 
 - Farmer adoption
 - Buyer adoption
@@ -174,7 +174,7 @@ The success of Oja-Oko Marketplace will be measured by:
 
 # Long-Term Vision
 
-Oja-Oko Marketplace is designed to evolve into a comprehensive agricultural ecosystem supporting:
+AgricHub Marketplace is designed to evolve into a comprehensive agricultural ecosystem supporting:
 
 - National agricultural commerce
 - Farmer verification
@@ -202,4 +202,4 @@ Every module must:
 - Follow clean coding standards.
 - Be scalable without major redesign.
 
-This document serves as the foundational vision for all technical and business decisions throughout the development of the Oja-Oko Marketplace.
+This document serves as the foundational vision for all technical and business decisions throughout the development of the AgricHub Marketplace.
