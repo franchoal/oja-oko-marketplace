@@ -313,7 +313,7 @@ Fields
 |--------|------|
 | id | Integer |
 | user | FK(User) |
-| AgricHub Africa | String |
+| title | String |
 | message | Text |
 | is_read | Boolean |
 | created_at | DateTime |

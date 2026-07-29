@@ -12,7 +12,7 @@ class NotificationAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "user",
-        "AgricHub Africa",
+        "title",
         "notification_type",
         "is_read",
         "created_at",
@@ -26,7 +26,7 @@ class NotificationAdmin(admin.ModelAdmin):
 
     search_fields = (
         "user__email",
-        "AgricHub Africa",
+        "title",
         "message",
     )
 

@@ -358,7 +358,7 @@ const NotificationsPage = () => {
 
               <h2 className="text-2xl font-bold text-gray-900 transition group-hover:text-green-700">
 
-                {notification.AgricHub Africa}
+                {notification.title}
 
               </h2>
 

@@ -114,7 +114,7 @@ def checkout(buyer, delivery_address, payment_method):
         # Notify buyer
         Notification.objects.create(
             user=buyer,
-            AgricHub Africa="Order Created",
+            title="Order Created",
             message=(
                 f"Your order #{order.id} "
                 "has been created successfully "
@@ -127,7 +127,7 @@ def checkout(buyer, delivery_address, payment_method):
         # Notify farmer
         Notification.objects.create(
             user=farmer.user,
-            AgricHub Africa="New Order Received",
+            title="New Order Received",
             message=(
                 f"You have received a new order "
                 f"#{order.id} from a buyer."

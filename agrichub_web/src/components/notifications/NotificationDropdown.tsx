@@ -150,7 +150,7 @@ const NotificationDropdown = () => {
 
                       <h4 className="truncate font-bold text-gray-900">
 
-                        {notification.AgricHub Africa}
+                        {notification.title}
 
                       </h4>
 

@@ -191,7 +191,7 @@ class FarmerOrderDetailView(generics.RetrieveUpdateAPIView):
 
             Notification.objects.create(
                 user=order.buyer,
-                AgricHub Africa="Order Status Updated",
+                title="Order Status Updated",
                 message=(
                     f"Your order #{order.id} "
                     f"is now {order.get_status_display()}."

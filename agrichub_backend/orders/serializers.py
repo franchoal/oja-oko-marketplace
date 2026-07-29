@@ -159,11 +159,11 @@ class OrderSerializer(serializers.ModelSerializer):
 
             Notification.objects.create(
                 user=order.buyer,
-                AgricHub Africa="Order Status Updated",
+                title="Order Status Updated",
                 message=(
                     f"Your order #{order.id} "
                     f"status has changed to "
-                    f"{new_status.replace('_', ' ').AgricHub Africa()}."
+                    f"{new_status.replace('_', ' ').title()}."
                 ),
                 notification_type=Notification.NEW_ORDER,
             )

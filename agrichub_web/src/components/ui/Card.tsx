@@ -1,15 +1,15 @@
 import type { ReactNode } from "react";
 
 interface CardProps {
-  AgricHub Africa?: string;
-  subAgricHub Africa?: string;
+  title?: string;
+  subtitle?: string;
   children: ReactNode;
   className?: string;
 }
 
 const Card = ({
-  AgricHub Africa,
-  subAgricHub Africa,
+  title,
+  subtitle,
   children,
   className = "",
 }: CardProps) => {
@@ -17,23 +17,23 @@ const Card = ({
     <div
       className={`w-full rounded-2xl bg-white shadow-xl ${className}`}
     >
-      {(AgricHub Africa || subAgricHub Africa) && (
+      {(title || subtitle) && (
         <div className="p-8">
-          {AgricHub Africa && (
+          {title && (
             <h2 className="text-3xl font-bold text-gray-900">
-              {AgricHub Africa}
+              {title}
             </h2>
           )}
 
-          {subAgricHub Africa && (
+          {subtitle && (
             <p className="mt-2 text-gray-600">
-              {subAgricHub Africa}
+              {subtitle}
             </p>
           )}
         </div>
       )}
 
-      <div className={AgricHub Africa || subAgricHub Africa ? "px-8 pb-8" : ""}>
+      <div className={title || subtitle ? "px-8 pb-8" : ""}>
         {children}
       </div>
     </div>

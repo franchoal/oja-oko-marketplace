@@ -57,12 +57,12 @@ const RegisterPage = ({
   return (
     <AuthLayout>
       <Card
-        AgricHub Africa={
+        title={
           accountType === "farmer"
             ? "Create Farmer Account"
             : "Create Buyer Account"
         }
-        subAgricHub Africa={
+        subtitle={
           accountType === "farmer"
             ? "Register your farm and start selling on AgricHub Marketplace."
             : "Create your buyer account and start shopping fresh farm products."

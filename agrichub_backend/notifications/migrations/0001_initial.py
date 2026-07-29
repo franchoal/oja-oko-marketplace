@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             name='Notification',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('AgricHub Africa', models.CharField(max_length=255)),
+                ('title', models.CharField(max_length=255)),
                 ('message', models.TextField()),
                 ('notification_type', models.CharField(choices=[('registration', 'Registration'), ('product_approval', 'Product Approval'), ('new_order', 'New Order'), ('payment_update', 'Payment Update'), ('delivery_update', 'Delivery Update')], max_length=50)),
                 ('is_read', models.BooleanField(default=False)),

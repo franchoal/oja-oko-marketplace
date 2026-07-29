@@ -480,7 +480,7 @@ Represents a notification sent to a user.
 |--------|------|-------|
 | id | BigAutoField | Primary Key |
 | user | ForeignKey(User) | Notification recipient |
-| AgricHub Africa | CharField | Notification AgricHub Africa |
+| title | CharField | Notification title |
 | message | TextField | Notification content |
 | notification_type | CharField | Registration / Product / Order / Payment / Delivery |
 | is_read | BooleanField | Read status |

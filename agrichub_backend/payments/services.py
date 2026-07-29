@@ -72,7 +72,7 @@ def confirm_payment(payment):
 
     Notification.objects.create(
         user=order.buyer,
-        AgricHub Africa="Payment Successful",
+        title="Payment Successful",
         message=(
             f"Payment for Order #{order.id} "
             "was successful. Your order has been accepted."

@@ -3,7 +3,7 @@ import { api } from "./api";
 export interface Notification {
   id: number;
 
-  AgricHub Africa: string;
+  title: string;
 
   message: string;
 

@@ -19,7 +19,7 @@ class NotificationSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "user",
-            "AgricHub Africa",
+            "title",
             "message",
             "notification_type",
             "is_read",

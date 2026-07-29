@@ -19,20 +19,20 @@ import {
   livestock,
 } from "../../assets/images";
 
-const SectionAgricHub Africa = ({
-  AgricHub Africa,
-  subAgricHub Africa,
+const Sectiontitle = ({
+  title,
+  subtitle,
 }: {
-  AgricHub Africa: string;
-  subAgricHub Africa: string;
+  title: string;
+  subtitle: string;
 }) => (
   <div className="mx-auto mb-12 max-w-2xl text-center">
     <h2 className="text-4xl font-bold text-gray-900">
-      {AgricHub Africa}
+      {title}
     </h2>
 
     <p className="mt-4 text-lg text-gray-600">
-      {subAgricHub Africa}
+      {subtitle}
     </p>
   </div>
 );
@@ -222,9 +222,9 @@ const HomePage = () => {
 
         <div className="mx-auto max-w-7xl px-6">
 
-          <SectionAgricHub Africa
-            AgricHub Africa="Browse Popular Categories"
-            subAgricHub Africa="Explore quality agricultural products from verified farmers across Nigeria, 
+          <Sectiontitle
+            title="Browse Popular Categories"
+            subtitle="Explore quality agricultural products from verified farmers across Nigeria, 
             sourced with transparency and delivered through a trusted digital marketplace."
           />
 
@@ -233,25 +233,25 @@ const HomePage = () => {
             {[
               {
                 image: vegetables,
-                AgricHub Africa: "Vegetables",
+                title: "Vegetables",
               },
               {
                 image: fruits,
-                AgricHub Africa: "Fruits",
+                title: "Fruits",
               },
               {
                 image: grains,
-                AgricHub Africa: "Grains",
+                title: "Grains",
               },
               {
                 image: livestock,
-                AgricHub Africa: "Livestock",
+                title: "Livestock",
               },
               
             ].map((category) => (
 
               <Link
-                key={category.AgricHub Africa}
+                key={category.title}
                 to="/products"
                 className="group overflow-hidden rounded-3xl bg-white shadow-md transition duration-300 hover:-translate-y-2 hover:shadow-2xl"
               >
@@ -260,7 +260,7 @@ const HomePage = () => {
 
                   <img
                     src={category.image}
-                    alt={category.AgricHub Africa}
+                    alt={category.title}
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
                   />
 
@@ -269,11 +269,11 @@ const HomePage = () => {
                 <div className="p-6">
 
                   <h3 className="text-2xl font-bold text-gray-900">
-                    {category.AgricHub Africa}
+                    {category.title}
                   </h3>
 
                   <p className="mt-3 text-gray-600">
-                    Discover quality {category.AgricHub Africa.toLowerCase()} from verified
+                    Discover quality {category.title.toLowerCase()} from verified
                     farmers.
                   </p>
 
@@ -297,9 +297,9 @@ const HomePage = () => {
 
         <div className="mx-auto max-w-7xl px-6">
 
-          <SectionAgricHub Africa
-            AgricHub Africa="How AgricHub-Africa Works for Farmers & Buyers"
-            subAgricHub Africa="Whether you're buying fresh produce or growing your agricultural business, AgricHub-Africa makes every step simple."
+          <Sectiontitle
+            title="How AgricHub-Africa Works for Farmers & Buyers"
+            subtitle="Whether you're buying fresh produce or growing your agricultural business, AgricHub-Africa makes every step simple."
           />
 
           <div className="grid gap-10 md:grid-cols-3">
@@ -307,17 +307,17 @@ const HomePage = () => {
             {[
               {
                 icon: Search,
-                AgricHub Africa: "Discover Trusted Farmers",
+                title: "Discover Trusted Farmers",
                 text: "Explore hundreds of fresh agricultural products from verified farmers.",
               },
               {
                 icon: Users,
-                AgricHub Africa: "Connect With Farmers",
+                title: "Connect With Farmers",
                 text: "Purchase directly from trusted farmers with transparent pricing.",
               },
               {
                 icon: ShoppingBasket,
-                AgricHub Africa: "Order With Confidence",
+                title: "Order With Confidence",
                 text: "Place orders quickly and manage everything from your account.",
               },
             ].map((step, index) => {
@@ -327,7 +327,7 @@ const HomePage = () => {
               return (
 
                 <div
-                  key={step.AgricHub Africa}
+                  key={step.title}
                   className="rounded-3xl bg-white p-10 text-center shadow-md transition hover:-translate-y-2 hover:shadow-xl"
                 >
 
@@ -347,7 +347,7 @@ const HomePage = () => {
                     </span>
 
                     <h3 className="mt-2 text-2xl font-bold">
-                      {step.AgricHub Africa}
+                      {step.title}
                     </h3>
 
                     <p className="mt-4 leading-7 text-gray-600">
@@ -376,9 +376,9 @@ const HomePage = () => {
 
         <div className="mx-auto max-w-7xl px-6">
 
-          <SectionAgricHub Africa
-            AgricHub Africa="Why Nigerians Choose AgricHub-Africa"
-            subAgricHub Africa="Built specifically for the Nigerian agricultural ecosystem."
+          <Sectiontitle
+            title="Why Nigerians Choose AgricHub-Africa"
+            subtitle="Built specifically for the Nigerian agricultural ecosystem."
           />
 
           <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
@@ -386,22 +386,22 @@ const HomePage = () => {
             {[
               {
                 icon: Leaf,
-                AgricHub Africa: "Verified Marketplace",
+                title: "Verified Marketplace",
                 text: "Farm-fresh products harvested and supplied directly by trusted farmers.",
               },
               {
                 icon: ShieldCheck,
-                AgricHub Africa: "Verified Farmers",
+                title: "Verified Farmers",
                 text: "Every seller is verified before listing products.",
               },
               {
                 icon: Users,
-                AgricHub Africa: "Nationwide Network",
+                title: "Nationwide Network",
                 text: "Connecting farmers and buyers across every region of Nigeria",
               },
               {
                 icon: TrendingUp,
-                AgricHub Africa: "Farmer Business Platform",
+                title: "Farmer Business Platform",
                 text: "Helping farmers grow profitable business through technology",
               },
             ].map((feature) => {
@@ -411,7 +411,7 @@ const HomePage = () => {
               return (
 
                 <div
-                  key={feature.AgricHub Africa}
+                  key={feature.title}
                   className="rounded-3xl bg-white p-8 shadow-md transition hover:-translate-y-2 hover:shadow-xl"
                 >
 
@@ -421,7 +421,7 @@ const HomePage = () => {
                   />
 
                   <h3 className="mt-6 text-2xl font-bold">
-                    {feature.AgricHub Africa}
+                    {feature.title}
                   </h3>
 
                   <p className="mt-4 leading-7 text-gray-600">
@@ -455,9 +455,9 @@ const HomePage = () => {
 
         <div className="relative mx-auto max-w-7xl px-6">
 
-          <SectionAgricHub Africa
-            AgricHub Africa="Helping farmers Build Profitable Agricultural Business"
-            subAgricHub Africa="AgricHub-Africa gives farmers more than market access. 
+          <Sectiontitle
+            title="Helping farmers Build Profitable Agricultural Business"
+            subtitle="AgricHub-Africa gives farmers more than market access. 
             We provide the digital foundation for sustainable agricultural growth."
           />
 
@@ -510,9 +510,9 @@ const HomePage = () => {
 
         <div className="mx-auto max-w-7xl px-6">
 
-          <SectionAgricHub Africa
-            AgricHub Africa="Built For Farmers, Trusted by Buyers"
-            subAgricHub Africa="Building confidence in agricultural commerce across Nigeria."
+          <Sectiontitle
+            title="Built For Farmers, Trusted by Buyers"
+            subtitle="Building confidence in agricultural commerce across Nigeria."
           />
 
           <div className="grid gap-8 lg:grid-cols-3">

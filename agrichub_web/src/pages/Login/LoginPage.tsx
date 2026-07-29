@@ -88,14 +88,14 @@ const LoginPage = ({
 
       <Card
 
-        AgricHub Africa={
+        title={
           accountType === "farmer"
             ? "Farmer Login"
             : "Buyer Login"
         }
 
 
-        subAgricHub Africa={
+        subtitle={
           accountType === "farmer"
             ? "Sign in to manage your farm, products, orders and sales."
             : "Sign in to browse and purchase fresh farm products."
