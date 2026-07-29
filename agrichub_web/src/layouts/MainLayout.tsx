@@ -76,25 +76,31 @@ const MainLayout = () => {
             />
        </div>
             <div>
-              <h1 className="text-xl font-extrabold text-green-700">
-                AgricHub
-              </h1>
+  <h1 className="text-xl font-extrabold text-green-700">
+    AgricHub Africa
+  </h1>
 
-              <p className="-mt-1 text-xs text-gray-500">
-                Marketplace
-              </p>
-            </div>
+  <p className="text-[11px] text-gray-500">
+    Africa's Smart Agricultural Ecosystem
+  </p>
+</div>
           </Link>
 
           {/* Desktop Navigation */}
 
           <nav className="hidden items-center gap-8 lg:flex">
-
+    
             <Link
               to="/"
               className="font-medium text-gray-700 transition hover:text-green-700"
             >
               Home
+            </Link>
+            <Link
+                to="/about"
+                className="font-medium text-gray-700 transition hover:text-green-700"
+            >
+              About
             </Link>
 
             <Link
@@ -302,11 +308,11 @@ const MainLayout = () => {
 </div>
 
                   <h2 className="text-2xl font-bold text-white">
-                    AgricHub
+                    AgricHub Africa
                   </h2>
 
                   <p className="text-sm text-green-100">
-                    Agricultural Marketplace
+                    Africa's Smart Agricultural Ecosystem
                   </p>
 
                 </div>
@@ -326,7 +332,13 @@ const MainLayout = () => {
               >
                 🏠 Home
               </Link>
-
+              <Link
+  to="/about"
+  onClick={() => setMobileMenuOpen(false)}
+  className="block rounded-xl px-4 py-3 transition hover:bg-green-50"
+>
+  ℹ️ About
+</Link>
               <Link
                 to="/products"
                 onClick={() => setMobileMenuOpen(false)}
@@ -467,7 +479,7 @@ const MainLayout = () => {
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-gray-500 md:flex-row">
 
           <p>
-            © {new Date().getFullYear()} AgricHub Marketplace. All rights reserved.
+            © {new Date().getFullYear()} AgricHub Africa. Built by Franchoal_Dev Technologies.
           </p>
 
           <div className="flex items-center gap-6">
@@ -484,6 +496,12 @@ const MainLayout = () => {
               className="transition hover:text-green-700"
             >
               Marketplace
+            </Link>
+            <Link
+              to="/about"
+              className="transition hover:text-green-700"
+            >
+              About
             </Link>
 
             <Link

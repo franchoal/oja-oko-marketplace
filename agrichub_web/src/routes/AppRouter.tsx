@@ -4,6 +4,7 @@ import MainLayout from "../layouts/MainLayout";
 import CheckoutPage from "../pages/Checkout/CheckoutPage";
 import OrdersPage from "../pages/Orders/OrdersPage";
 import HomePage from "../pages/Home/HomePage";
+import AboutPage from "../pages/About/AboutPage";
 import FarmerOrdersPage from "../pages/Farmer/FarmerOrdersPage";
 import FarmerOrderDetailsPage from "../pages/Farmer/FarmerOrderDetailsPage";
 
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: "about",
+        element: <AboutPage />,
       },
 
       /*
